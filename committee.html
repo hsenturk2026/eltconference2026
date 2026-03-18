@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Committee – ELT Conference 2026</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .committee-section { max-width:1100px;margin:0 auto; }
+    .committee-group { margin-bottom:3.5rem; }
+    .committee-group h3 { color:var(--forest-dark);border-bottom:2px solid var(--border);padding-bottom:0.75rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:0.75rem; }
+    .committee-group h3 .group-badge { font-family:'DM Sans',sans-serif;font-size:0.72rem;font-weight:400;letter-spacing:0.06em;text-transform:uppercase; }
+    .member-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:1rem; }
+    .member-card { background:#fff;border:1px solid var(--border);border-radius:8px;padding:1.25rem; }
+    .member-card .name { font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:500;color:var(--forest-dark);margin-bottom:0.2rem; }
+    .member-card .role { font-size:0.78rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--terracotta);margin-bottom:0.25rem; }
+    .member-card .affiliation { font-size:0.84rem;color:var(--muted); }
+    .placeholder-card { background:var(--cream);border:1px dashed var(--border);border-radius:8px;padding:1.25rem;text-align:center; }
+    .placeholder-card p { font-size:0.85rem;color:var(--muted); }
+    @media(max-width:768px){.member-grid{grid-template-columns:repeat(2,1fr);}}
+    @media(max-width:480px){.member-grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">ELT Conference 2026<span>Yeditepe University · Istanbul</span></a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="cfp.html">Call for Papers</a></li>
+      <li><a href="speakers.html">Speakers</a></li>
+      <li><a href="registration.html">Registration</a></li>
+      <li><a href="venue.html">Venue</a></li>
+      <li><a href="committee.html" class="active">Committee</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="registration.html" class="nav-register">Register</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <h1>Conference Committee</h1>
+  <p>The team organising ELT Conference 2026 at Yeditepe University</p>
+</div>
+
+<section class="section">
+  <div class="committee-section">
+
+    <!-- Organising Committee -->
+    <div class="committee-group">
+      <h3>
+        Organising Committee
+        <span class="badge badge-terracotta group-badge">Yeditepe University ELT</span>
+      </h3>
+      <div class="member-grid">
+        <div class="placeholder-card">
+          <p>Committee members will be listed here once confirmed.</p>
+          <a href="contact.html" style="font-size:0.82rem;color:var(--terracotta);display:block;margin-top:0.5rem;">Contact us</a>
+        </div>
+        <div class="placeholder-card"><p>Member to be added</p></div>
+        <div class="placeholder-card"><p>Member to be added</p></div>
+      </div>
+      <div class="highlight-box" style="margin-top:1.25rem;">
+        <p style="font-size:0.9rem;">The Organising Committee is responsible for all logistical, financial, and operational aspects of the conference. To reach the team, please use the <a href="contact.html">contact page</a>.</p>
+      </div>
+    </div>
+
+    <!-- Scientific Committee -->
+    <div class="committee-group">
+      <h3>
+        Scientific Committee
+        <span class="badge badge-forest group-badge">Peer Review</span>
+      </h3>
+      <div class="member-grid">
+        <div class="placeholder-card">
+          <p>Scientific committee members will be announced following confirmation.</p>
+        </div>
+        <div class="placeholder-card"><p>Member to be added</p></div>
+        <div class="placeholder-card"><p>Member to be added</p></div>
+        <div class="placeholder-card"><p>Member to be added</p></div>
+        <div class="placeholder-card"><p>Member to be added</p></div>
+        <div class="placeholder-card"><p>Member to be added</p></div>
+      </div>
+      <div class="highlight-box" style="margin-top:1.25rem;">
+        <p style="font-size:0.9rem;">The Scientific Committee is responsible for the double-blind peer review of all submitted abstracts and for maintaining the academic standards of the conference programme. Members are drawn from ELT and Applied Linguistics programmes across Türkiye.</p>
+      </div>
+    </div>
+
+    <!-- Advisory Board -->
+    <div class="committee-group">
+      <h3>
+        Advisory Board
+        <span class="badge badge-gold group-badge">Senior Academics</span>
+      </h3>
+      <div class="member-grid">
+        <div class="placeholder-card">
+          <p>Advisory board members to be announced.</p>
+        </div>
+        <div class="placeholder-card"><p>Member to be added</p></div>
+        <div class="placeholder-card"><p>Member to be added</p></div>
+      </div>
+    </div>
+
+    <!-- Join the committee -->
+    <div style="background:var(--forest-dark);border-radius:10px;padding:2.5rem;text-align:center;">
+      <h3 style="color:#fff;margin-bottom:0.75rem;">Interested in joining the Scientific Committee?</h3>
+      <p style="color:rgba(255,255,255,0.65);max-width:540px;margin:0 auto 1.5rem;font-size:0.93rem;">We are currently forming our Scientific Committee and welcome expressions of interest from ELT and Applied Linguistics academics based in Türkiye. Reviewers are expected to evaluate 2–3 abstracts.</p>
+      <a href="contact.html" class="btn btn-primary">Express Interest</a>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><h3>Building ELT Communities</h3><p>Research and Practice in Dialogue<br>24–25 October 2026 · Yeditepe University, Istanbul, Türkiye</p></div>
+    <div class="footer-col"><h4>Navigate</h4><ul><li><a href="about.html">About</a></li><li><a href="cfp.html">Call for Papers</a></li><li><a href="speakers.html">Keynote Speakers</a></li><li><a href="registration.html">Registration</a></li></ul></div>
+    <div class="footer-col"><h4>Info</h4><ul><li><a href="venue.html">Venue & Travel</a></li><li><a href="committee.html">Committee</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 Yeditepe University ELT Program. All rights reserved.</span><span>eltconference7tepe.org</span></div>
+</footer>
+<script>document.getElementById('hamburger').addEventListener('click',()=>document.getElementById('nav-links').classList.toggle('open'));</script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact – ELT Conference 2026</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .contact-layout { max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start; }
+    .contact-form label { display:block;font-size:0.85rem;font-weight:500;color:var(--ink);margin-bottom:0.4rem;margin-top:1.25rem; }
+    .contact-form label:first-of-type { margin-top:0; }
+    .contact-form input, .contact-form select, .contact-form textarea {
+      width:100%;padding:0.7rem 0.9rem;border:1.5px solid var(--border);border-radius:6px;
+      font-family:'DM Sans',sans-serif;font-size:0.93rem;color:var(--ink);
+      background:var(--warm-white);transition:border-color 0.2s;outline:none;
+    }
+    .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus {
+      border-color:var(--forest);
+    }
+    .contact-form textarea { resize:vertical;min-height:130px; }
+    .contact-form .form-row { display:grid;grid-template-columns:1fr 1fr;gap:1rem; }
+    .form-note { font-size:0.8rem;color:var(--muted);margin-top:0.75rem; }
+    .contact-info-card { background:#fff;border:1px solid var(--border);border-radius:10px;padding:2rem;margin-bottom:1.5rem; }
+    .contact-info-card h4 { color:var(--forest-dark);margin-bottom:1rem;font-size:1.05rem; }
+    .contact-info-item { display:flex;align-items:flex-start;gap:0.75rem;padding:0.6rem 0;border-bottom:1px solid var(--border);font-size:0.9rem;color:var(--ink-light); }
+    .contact-info-item:last-child { border-bottom:none; }
+    .contact-info-item .ci-label { font-weight:500;color:var(--forest-dark);min-width:80px;flex-shrink:0; }
+    .success-msg { display:none;background:rgba(61,90,74,0.08);border:1px solid var(--forest-light);border-radius:6px;padding:1rem 1.25rem;font-size:0.92rem;color:var(--forest-dark);margin-top:1rem; }
+    @media(max-width:768px){.contact-layout{grid-template-columns:1fr;}.contact-form .form-row{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">ELT Conference 2026<span>Yeditepe University · Istanbul</span></a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="cfp.html">Call for Papers</a></li>
+      <li><a href="speakers.html">Speakers</a></li>
+      <li><a href="registration.html">Registration</a></li>
+      <li><a href="venue.html">Venue</a></li>
+      <li><a href="committee.html">Committee</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+      <li><a href="registration.html" class="nav-register">Register</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <h1>Contact Us</h1>
+  <p>Get in touch with the ELT Conference 2026 organising team</p>
+</div>
+
+<section class="section">
+  <div class="contact-layout">
+
+    <!-- FORM -->
+    <div>
+      <h3 style="color:var(--forest-dark);margin-bottom:1.5rem;">Send us a message</h3>
+      <form class="contact-form" id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+
+        <div class="form-row">
+          <div>
+            <label for="fname">First Name *</label>
+            <input type="text" id="fname" name="first_name" required placeholder="e.g. Ayşe">
+          </div>
+          <div>
+            <label for="lname">Last Name *</label>
+            <input type="text" id="lname" name="last_name" required placeholder="e.g. Yıldız">
+          </div>
+        </div>
+
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" name="email" required placeholder="your@email.com">
+
+        <label for="affiliation">Institution / Affiliation</label>
+        <input type="text" id="affiliation" name="affiliation" placeholder="e.g. Yeditepe University">
+
+        <label for="subject">Subject *</label>
+        <select id="subject" name="subject" required>
+          <option value="" disabled selected>Select a topic…</option>
+          <option value="abstract">Abstract submission enquiry</option>
+          <option value="registration">Registration enquiry</option>
+          <option value="sponsorship">Sponsorship / Exhibition</option>
+          <option value="committee">Scientific committee interest</option>
+          <option value="venue">Venue / Travel</option>
+          <option value="press">Press / Media</option>
+          <option value="other">Other</option>
+        </select>
+
+        <label for="message">Message *</label>
+        <textarea id="message" name="message" required placeholder="Please describe your enquiry…"></textarea>
+
+        <div style="margin-top:1.5rem;">
+          <button type="submit" class="btn btn-primary" style="width:100%;">Send Message</button>
+        </div>
+        <p class="form-note">* Required fields. We aim to respond within 3 working days.</p>
+        <div class="success-msg" id="success-msg">✓ Thank you — your message has been sent. We'll be in touch shortly.</div>
+      </form>
+
+      <p style="font-size:0.82rem;color:var(--muted);margin-top:1rem;">
+        <em>Note: To enable this contact form, replace <code>YOUR_FORM_ID</code> with your Formspree form ID, or connect a backend of your choice.</em>
+      </p>
+    </div>
+
+    <!-- CONTACT INFO -->
+    <div>
+      <div class="contact-info-card">
+        <h4>Organising Committee</h4>
+        <div class="contact-info-item">
+          <span class="ci-label">Email</span>
+          <a href="mailto:info@eltconference7tepe.org">info@eltconference7tepe.org</a>
+        </div>
+        <div class="contact-info-item">
+          <span class="ci-label">Website</span>
+          <a href="https://eltconference7tepe.org">eltconference7tepe.org</a>
+        </div>
+        <div class="contact-info-item">
+          <span class="ci-label">Institution</span>
+          <span>Yeditepe University, ELT Program</span>
+        </div>
+        <div class="contact-info-item">
+          <span class="ci-label">Address</span>
+          <span>Kayışdağı Caddesi, Ataşehir, Istanbul, Türkiye</span>
+        </div>
+      </div>
+
+      <div class="contact-info-card">
+        <h4>Enquiry Topics</h4>
+        <div style="display:flex;flex-direction:column;gap:0.5rem;">
+          <div style="display:flex;align-items:flex-start;gap:0.6rem;font-size:0.88rem;color:var(--ink-light);padding:0.4rem 0;border-bottom:1px solid var(--border);">
+            <span style="width:7px;height:7px;border-radius:50%;background:var(--terracotta);margin-top:0.45rem;flex-shrink:0;"></span>
+            <div><strong style="color:var(--forest-dark);">Abstract submissions</strong><br>Questions about the submission process, guidelines, or deadlines</div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:0.6rem;font-size:0.88rem;color:var(--ink-light);padding:0.4rem 0;border-bottom:1px solid var(--border);">
+            <span style="width:7px;height:7px;border-radius:50%;background:var(--terracotta);margin-top:0.45rem;flex-shrink:0;"></span>
+            <div><strong style="color:var(--forest-dark);">Registration</strong><br>Fees, categories, payment, and group registrations</div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:0.6rem;font-size:0.88rem;color:var(--ink-light);padding:0.4rem 0;border-bottom:1px solid var(--border);">
+            <span style="width:7px;height:7px;border-radius:50%;background:var(--terracotta);margin-top:0.45rem;flex-shrink:0;"></span>
+            <div><strong style="color:var(--forest-dark);">Sponsorship &amp; Exhibition</strong><br>Publisher stands, sponsorship packages, and partnership enquiries</div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:0.6rem;font-size:0.88rem;color:var(--ink-light);padding:0.4rem 0;">
+            <span style="width:7px;height:7px;border-radius:50%;background:var(--terracotta);margin-top:0.45rem;flex-shrink:0;"></span>
+            <div><strong style="color:var(--forest-dark);">Scientific Committee</strong><br>Expressions of interest in joining the review panel</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--forest-dark);border-radius:10px;padding:1.75rem;text-align:center;">
+        <p style="color:#fff;font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;margin-bottom:0.5rem;">"Building community begins with a conversation."</p>
+        <p style="color:rgba(255,255,255,0.5);font-size:0.82rem;">We look forward to hearing from you.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><h3>Building ELT Communities</h3><p>Research and Practice in Dialogue<br>24–25 October 2026 · Yeditepe University, Istanbul, Türkiye</p></div>
+    <div class="footer-col"><h4>Navigate</h4><ul><li><a href="about.html">About</a></li><li><a href="cfp.html">Call for Papers</a></li><li><a href="speakers.html">Keynote Speakers</a></li><li><a href="registration.html">Registration</a></li></ul></div>
+    <div class="footer-col"><h4>Info</h4><ul><li><a href="venue.html">Venue & Travel</a></li><li><a href="committee.html">Committee</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 Yeditepe University ELT Program. All rights reserved.</span><span>eltconference7tepe.org</span></div>
+</footer>
+<script>
+  document.getElementById('hamburger').addEventListener('click',()=>document.getElementById('nav-links').classList.toggle('open'));
+  document.getElementById('contact-form').addEventListener('submit', function(e) {
+    // If using Formspree, remove this block. This is a fallback demo handler.
+    // e.preventDefault();
+    // document.getElementById('success-msg').style.display='block';
+  });
+</script>
+</body>
+</html>
