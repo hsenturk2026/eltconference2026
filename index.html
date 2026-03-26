@@ -242,13 +242,25 @@
     white-space: nowrap;
   }
 
-  .notify-form button:hover { background: #a85e3a; }
-
-  .thankyou {
-    display: none;
+  .notify-btn {
+    display: inline-block;
+    padding: 0.7rem 1.75rem;
+    background: var(--terracotta);
+    color: #fff;
+    border-radius: 4px;
+    font-family: 'DM Sans', sans-serif;
     font-size: 0.88rem;
-    color: rgba(255,255,255,0.5);
-    margin-top: 0.75rem;
+    text-decoration: none;
+    transition: background 0.2s;
+    margin-bottom: 0.75rem;
+  }
+
+  .notify-btn:hover { background: #a85e3a; }
+
+  .notify-hint {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.25) !important;
+    margin-bottom: 0 !important;
   }
 
   .foot {
@@ -336,12 +348,11 @@
   </div>
 
   <div class="notify-section f6">
-    <p>Leave your email to be notified when registration and the call for papers open.</p>
-    <div class="notify-form">
-      <input type="email" id="notify-email" placeholder="your@email.com">
-      <button onclick="handleNotify()">Notify me</button>
-    </div>
-    <div class="thankyou" id="thankyou">✓ Thank you — we'll be in touch soon.</div>
+    <p>Want to be notified when registration and the call for papers open?</p>
+    <a class="notify-btn" href="mailto:yuelt.conference@gmail.com?subject=Please%20notify%20me%20about%20ELT%20Conference%202026&body=Hello%2C%0A%0APlease%20add%20me%20to%20your%20mailing%20list%20for%20ELT%20Conference%202026%20updates.%0A%0AName%3A%0AInstitution%3A">
+      Notify me
+    </a>
+    <p class="notify-hint">Clicking will open an email to yuelt.conference@gmail.com</p>
   </div>
 </div>
 
@@ -368,13 +379,6 @@
 
   updateCountdown();
   setInterval(updateCountdown, 1000);
-
-  function handleNotify() {
-    const email = document.getElementById('notify-email').value.trim();
-    if (!email || !email.includes('@')) { document.getElementById('notify-email').focus(); return; }
-    document.querySelector('.notify-form').style.display = 'none';
-    document.getElementById('thankyou').style.display = 'block';
-  }
 </script>
 </body>
 </html>
