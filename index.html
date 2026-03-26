@@ -54,12 +54,7 @@
     pointer-events: none;
   }
 
-  .wrapper {
-    position: relative;
-    z-index: 1;
-    max-width: 680px;
-    width: 100%;
-  }
+  .wrapper { position: relative; z-index: 1; max-width: 680px; width: 100%; }
 
   .host {
     font-size: 0.75rem;
@@ -90,18 +85,9 @@
     color: #fff;
   }
 
-  h1 em {
-    font-style: normal;
-    color: var(--terracotta-light);
-  }
+  h1 em { font-style: normal; color: var(--terracotta-light); }
 
-  .divider {
-    width: 48px;
-    height: 1.5px;
-    background: var(--terracotta);
-    margin: 2rem auto;
-    opacity: 0.7;
-  }
+  .divider { width: 48px; height: 1.5px; background: var(--terracotta); margin: 2rem auto; opacity: 0.7; }
 
   .event-meta {
     display: flex;
@@ -129,11 +115,7 @@
     color: rgba(255,255,255,0.92);
   }
 
-  .meta-sep {
-    width: 1px;
-    height: 32px;
-    background: rgba(255,255,255,0.12);
-  }
+  .meta-sep { width: 1px; height: 32px; background: rgba(255,255,255,0.12); }
 
   .coming-soon {
     display: inline-flex;
@@ -200,57 +182,22 @@
   .notify-section p {
     font-size: 0.88rem;
     color: var(--muted);
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
   }
 
-  .notify-form {
-    display: flex;
-    gap: 0.5rem;
-    max-width: 400px;
-    margin: 0 auto;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .notify-form input {
-    flex: 1;
-    min-width: 200px;
-    padding: 0.7rem 1rem;
-    border-radius: 4px;
-    border: 1px solid rgba(255,255,255,0.2);
-    background: rgba(255,255,255,0.07);
-    color: #fff;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.88rem;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  .notify-form input::placeholder { color: rgba(255,255,255,0.3); }
-  .notify-form input:focus { border-color: rgba(255,255,255,0.4); }
-
-  .notify-form button {
-    padding: 0.7rem 1.4rem;
-    background: var(--terracotta);
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.88rem;
-    cursor: pointer;
-    transition: background 0.2s;
-    white-space: nowrap;
-  }
-
+  /* The button is injected by JS so Cloudflare never sees the email in HTML */
   .notify-btn {
     display: inline-block;
-    padding: 0.7rem 1.75rem;
+    padding: 0.75rem 2rem;
     background: var(--terracotta);
     color: #fff;
     border-radius: 4px;
     font-family: 'DM Sans', sans-serif;
-    font-size: 0.88rem;
+    font-size: 0.9rem;
+    font-weight: 400;
     text-decoration: none;
+    cursor: pointer;
+    border: none;
     transition: background 0.2s;
     margin-bottom: 0.75rem;
   }
@@ -258,9 +205,10 @@
   .notify-btn:hover { background: #a85e3a; }
 
   .notify-hint {
+    display: block;
     font-size: 0.75rem;
-    color: rgba(255,255,255,0.25) !important;
-    margin-bottom: 0 !important;
+    color: rgba(255,255,255,0.22);
+    margin-top: 0.5rem;
   }
 
   .foot {
@@ -349,18 +297,16 @@
 
   <div class="notify-section f6">
     <p>Want to be notified when registration and the call for papers open?</p>
-    <a class="notify-btn" href="mailto:yuelt.conference@gmail.com?subject=Please%20notify%20me%20about%20ELT%20Conference%202026&body=Hello%2C%0A%0APlease%20add%20me%20to%20your%20mailing%20list%20for%20ELT%20Conference%202026%20updates.%0A%0AName%3A%0AInstitution%3A">
-      Notify me
-    </a>
-    <p class="notify-hint">Clicking will open an email to yuelt.conference@gmail.com</p>
+    <div id="notify-btn-container"></div>
+    <span class="notify-hint" id="notify-hint"></span>
   </div>
 </div>
 
 <div class="foot">eltconference7tepe.org &nbsp;·&nbsp; © 2026 Yeditepe University ELT Program</div>
 
 <script>
+  // Countdown
   const target = new Date('2026-10-24T09:00:00+03:00');
-
   function updateCountdown() {
     const diff = target - new Date();
     if (diff <= 0) {
@@ -376,9 +322,26 @@
     document.getElementById('cd-mins').textContent  = String(mins).padStart(2,'0');
     document.getElementById('cd-secs').textContent  = String(secs).padStart(2,'0');
   }
-
   updateCountdown();
   setInterval(updateCountdown, 1000);
+
+  // Build mailto entirely in JS — Cloudflare only scans HTML, not JS strings
+  (function() {
+    var u = 'yuelt.conference';
+    var d = 'gmail.com';
+    var s = 'Please notify me about ELT Conference 2026';
+    var b = 'Hello,\n\nPlease add me to your mailing list for ELT Conference 2026 updates.\n\nName:\nInstitution:';
+    var href = 'mailto:' + u + '@' + d + '?subject=' + encodeURIComponent(s) + '&body=' + encodeURIComponent(b);
+
+    var btn = document.createElement('a');
+    btn.href = href;
+    btn.className = 'notify-btn';
+    btn.textContent = 'Notify me';
+    document.getElementById('notify-btn-container').appendChild(btn);
+
+    document.getElementById('notify-hint').textContent = 'Opens an email to ' + u + '@' + d;
+  })();
 </script>
+
 </body>
 </html>
