@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ELT Conference 2026 – Yeditepe University</title>
+<meta name="description" content="Building ELT Communities: Research and Practice in Dialogue. 24–25 October 2026, Yeditepe University, Istanbul.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --forest-dark: #2B4035;
+    --terracotta: #C4714A;
+    --terracotta-light: #E8956E;
+    --muted: rgba(255,255,255,0.45);
+  }
+
+  html, body { height: 100%; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    background: var(--forest-dark);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 70% 20%, rgba(196,113,74,0.18) 0%, transparent 55%),
+      radial-gradient(ellipse at 15% 80%, rgba(82,122,98,0.2) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  body::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.025;
+    background-image: repeating-linear-gradient(45deg, #fff 0px, #fff 1px, transparent 1px, transparent 40px);
+    pointer-events: none;
+  }
+
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+    width: 100%;
+  }
+
+  .host {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terracotta-light);
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .host::before, .host::after {
+    content: '';
+    width: 28px;
+    height: 1px;
+    background: var(--terracotta-light);
+    opacity: 0.5;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 6vw, 3.6rem);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.25;
+    color: #fff;
+  }
+
+  h1 em {
+    font-style: normal;
+    color: var(--terracotta-light);
+  }
+
+  .divider {
+    width: 48px;
+    height: 1.5px;
+    background: var(--terracotta);
+    margin: 2rem auto;
+    opacity: 0.7;
+  }
+
+  .event-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+
+  .meta-item { text-align: center; }
+
+  .meta-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.3rem;
+  }
+
+  .meta-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.92);
+  }
+
+  .meta-sep {
+    width: 1px;
+    height: 32px;
+    background: rgba(255,255,255,0.12);
+  }
+
+  .coming-soon {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 100px;
+    padding: 0.55rem 1.4rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 3rem;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--terracotta-light);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  .countdown {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+
+  .countdown-unit { text-align: center; min-width: 64px; }
+
+  .countdown-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 500;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .countdown-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .countdown-sep {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    color: rgba(255,255,255,0.15);
+    align-self: flex-start;
+    padding-top: 0.3rem;
+  }
+
+  .notify-section p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .notify-form {
+    display: flex;
+    gap: 0.5rem;
+    max-width: 400px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .notify-form input {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.7rem 1rem;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.07);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .notify-form input::placeholder { color: rgba(255,255,255,0.3); }
+  .notify-form input:focus { border-color: rgba(255,255,255,0.4); }
+
+  .notify-form button {
+    padding: 0.7rem 1.4rem;
+    background: var(--terracotta);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+
+  .notify-form button:hover { background: #a85e3a; }
+
+  .thankyou {
+    display: none;
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.5);
+    margin-top: 0.75rem;
+  }
+
+  .foot {
+    position: absolute;
+    bottom: 1.75rem;
+    left: 0; right: 0;
+    text-align: center;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.18);
+    letter-spacing: 0.06em;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .f1 { animation: fadeUp 0.7s ease both; }
+  .f2 { animation: fadeUp 0.7s 0.15s ease both; }
+  .f3 { animation: fadeUp 0.7s 0.3s ease both; }
+  .f4 { animation: fadeUp 0.7s 0.45s ease both; }
+  .f5 { animation: fadeUp 0.7s 0.6s ease both; }
+  .f6 { animation: fadeUp 0.7s 0.75s ease both; }
+
+  @media (max-width: 480px) {
+    .meta-sep { display: none; }
+    .event-meta { gap: 1.25rem; }
+    .countdown-sep { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+  <div class="host f1">Yeditepe University · ELT Program</div>
+
+  <h1 class="f2">
+    Building ELT Communities:<br>
+    <em>Research and Practice in Dialogue</em>
+  </h1>
+
+  <div class="divider f3"></div>
+
+  <div class="event-meta f3">
+    <div class="meta-item">
+      <div class="meta-label">Date</div>
+      <div class="meta-value">24–25 October 2026</div>
+    </div>
+    <div class="meta-sep"></div>
+    <div class="meta-item">
+      <div class="meta-label">Day</div>
+      <div class="meta-value">Saturday &amp; Sunday</div>
+    </div>
+    <div class="meta-sep"></div>
+    <div class="meta-item">
+      <div class="meta-label">Location</div>
+      <div class="meta-value">Yeditepe University, Istanbul</div>
+    </div>
+  </div>
+
+  <div class="coming-soon f4">
+    <span class="dot"></span>
+    Full details coming soon
+  </div>
+
+  <div class="countdown f5" id="countdown">
+    <div class="countdown-unit">
+      <div class="countdown-number" id="cd-days">--</div>
+      <div class="countdown-label">Days</div>
+    </div>
+    <div class="countdown-sep">·</div>
+    <div class="countdown-unit">
+      <div class="countdown-number" id="cd-hours">--</div>
+      <div class="countdown-label">Hours</div>
+    </div>
+    <div class="countdown-sep">·</div>
+    <div class="countdown-unit">
+      <div class="countdown-number" id="cd-mins">--</div>
+      <div class="countdown-label">Minutes</div>
+    </div>
+    <div class="countdown-sep">·</div>
+    <div class="countdown-unit">
+      <div class="countdown-number" id="cd-secs">--</div>
+      <div class="countdown-label">Seconds</div>
+    </div>
+  </div>
+
+  <div class="notify-section f6">
+    <p>Leave your email to be notified when registration and the call for papers open.</p>
+    <div class="notify-form">
+      <input type="email" id="notify-email" placeholder="your@email.com">
+      <button onclick="handleNotify()">Notify me</button>
+    </div>
+    <div class="thankyou" id="thankyou">✓ Thank you — we'll be in touch soon.</div>
+  </div>
+</div>
+
+<div class="foot">eltconference7tepe.org &nbsp;·&nbsp; © 2026 Yeditepe University ELT Program</div>
+
+<script>
+  const target = new Date('2026-10-24T09:00:00+03:00');
+
+  function updateCountdown() {
+    const diff = target - new Date();
+    if (diff <= 0) {
+      document.getElementById('countdown').innerHTML = '<p style="color:rgba(255,255,255,0.6);font-size:0.9rem;">The conference is here!</p>';
+      return;
+    }
+    const days  = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins  = Math.floor((diff % 3600000) / 60000);
+    const secs  = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-days').textContent  = String(days).padStart(2,'0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+    document.getElementById('cd-mins').textContent  = String(mins).padStart(2,'0');
+    document.getElementById('cd-secs').textContent  = String(secs).padStart(2,'0');
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  function handleNotify() {
+    const email = document.getElementById('notify-email').value.trim();
+    if (!email || !email.includes('@')) { document.getElementById('notify-email').focus(); return; }
+    document.querySelector('.notify-form').style.display = 'none';
+    document.getElementById('thankyou').style.display = 'block';
+  }
+</script>
+</body>
+</html>
