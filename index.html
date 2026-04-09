@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ELT Conference 2026 – Yeditepe University</title>
+  <meta name="description" content="Building ELT Communities: Research and Practice in Dialogue. 24–25 October 2026, Yeditepe University, Istanbul.">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .hero {
+      min-height: 92vh;
+      background: var(--forest-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      padding: 4rem 2rem;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 70% 30%, rgba(196,113,74,0.22) 0%, transparent 55%),
+        radial-gradient(ellipse at 20% 80%, rgba(82,122,98,0.18) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-pattern {
+      position: absolute;
+      inset: 0;
+      opacity: 0.03;
+      background-image: repeating-linear-gradient(
+        45deg,
+        #fff 0px, #fff 1px,
+        transparent 1px, transparent 40px
+      );
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--terracotta-light);
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .hero-eyebrow::before,
+    .hero-eyebrow::after {
+      content: '';
+      width: 32px;
+      height: 1px;
+      background: var(--terracotta-light);
+      opacity: 0.6;
+    }
+
+    .hero h1 {
+      color: #fff;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-style: italic;
+      margin-bottom: 1rem;
+      font-weight: 400;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--terracotta-light);
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .hero-meta-item {
+      text-align: center;
+    }
+
+    .hero-meta-item .label {
+      display: block;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 0.2rem;
+    }
+
+    .hero-meta-item .value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .hero-sep {
+      width: 1px;
+      height: 36px;
+      background: rgba(255,255,255,0.15);
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: rgba(255,255,255,0.3);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      animation: bounceDown 2s ease-in-out infinite;
+    }
+
+    .hero-scroll svg { opacity: 0.4; }
+
+    @keyframes bounceDown {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* Stats strip */
+    .stats-strip {
+      background: var(--sand);
+      border-bottom: 1px solid var(--border);
+      padding: 1.75rem 2rem;
+    }
+
+    .stats-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--forest-dark);
+      line-height: 1;
+      margin-bottom: 0.2rem;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* About strip */
+    .about-strip {
+      padding: 5rem 2rem;
+    }
+
+    .about-strip-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .about-text h2 {
+      color: var(--forest-dark);
+      margin-bottom: 1.25rem;
+    }
+
+    .about-text p {
+      margin-bottom: 1rem;
+      line-height: 1.8;
+    }
+
+    .about-visual {
+      position: relative;
+    }
+
+    .date-card {
+      background: var(--forest-dark);
+      color: #fff;
+      border-radius: 12px;
+      padding: 2.5rem;
+      text-align: center;
+    }
+
+    .date-card .month {
+      font-size: 0.78rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--terracotta-light);
+      margin-bottom: 0.5rem;
+    }
+
+    .date-card .days {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem;
+      font-weight: 500;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .date-card .year {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 1.5rem;
+    }
+
+    .date-card .location {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.7);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 1.25rem;
+      line-height: 1.6;
+    }
+
+    /* Days section */
+    .days-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .day-card {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .day-header {
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .day-header.day1 { background: var(--terracotta); }
+    .day-header.day2 { background: var(--forest); }
+
+    .day-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.4);
+      line-height: 1;
+    }
+
+    .day-info .day-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: #fff;
+    }
+
+    .day-info .day-date {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.65);
+      margin-top: 0.2rem;
+    }
+
+    .day-body {
+      background: #fff;
+      padding: 1.75rem 2rem;
+    }
+
+    .day-body ul {
+      list-style: none;
+    }
+
+    .day-body ul li {
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.93rem;
+      color: var(--ink-light);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .day-body ul li:last-child { border-bottom: none; }
+
+    .day-body ul li::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .day-card:first-child .day-body ul li::before { background: var(--terracotta); }
+    .day-card:last-child  .day-body ul li::before { background: var(--forest); }
+
+    /* Panel spotlight */
+    .panel-spotlight {
+      background: var(--forest-dark);
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+
+    .panel-spotlight h2 {
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+
+    .panel-spotlight p {
+      color: rgba(255,255,255,0.65);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    .panel-name {
+      display: inline-block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 500;
+      font-style: italic;
+      color: var(--terracotta-light);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 0.75rem 2rem;
+      margin-bottom: 1rem;
+    }
+
+    /* CTA */
+    .cta-section {
+      padding: 5rem 2rem;
+      text-align: center;
+      background: var(--cream);
+    }
+
+    .cta-section h2 {
+      color: var(--forest-dark);
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      color: var(--muted);
+      margin-bottom: 2rem;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cfp-deadline-note {
+      display: inline-block;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.6rem 1.25rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .cfp-deadline-note strong {
+      color: var(--terracotta);
+    }
+
+    @media (max-width: 768px) {
+      .about-strip-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .days-grid { grid-template-columns: 1fr; }
+      .hero-sep { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      ELT Conference 2026
+      <span>Yeditepe University · Istanbul</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="cfp.html">Call for Papers</a></li>
+      <li><a href="speakers.html">Speakers</a></li>
+      <li><a href="registration.html">Registration</a></li>
+      <li><a href="venue.html">Venue</a></li>
+      <li><a href="committee.html">Committee</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-pattern"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow fade-up">Yeditepe University ELT Program</div>
+    <h1 class="fade-up fade-up-2">
+      Building ELT Communities:<br>
+      <em>Research and Practice in Dialogue</em>
+    </h1>
+    <p class="hero-subtitle fade-up fade-up-3">
+      A national conference bridging research and classroom practice in English Language Teaching
+    </p>
+    <div class="hero-meta fade-up fade-up-4">
+      <div class="hero-meta-item">
+        <span class="label">Date</span>
+        <span class="value">24–25 October 2026</span>
+      </div>
+      <div class="hero-sep"></div>
+      <div class="hero-meta-item">
+        <span class="label">Location</span>
+        <span class="value">Yeditepe University, Istanbul</span>
+      </div>
+      <div class="hero-sep"></div>
+      <div class="hero-meta-item">
+        <span class="label">Format</span>
+        <span class="value">Face-to-Face</span>
+      </div>
+    </div>
+    <div class="hero-actions fade-up fade-up-4">
+      <a href="cfp.html" class="btn btn-primary">View Call for Papers</a>
+      <a href="about.html" class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,0.4);">Learn More</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <svg width="16" height="10" viewBox="0 0 16 10" fill="none">
+      <path d="M1 1L8 8L15 1" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    Scroll
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat">
+      <div class="stat-number">400+</div>
+      <div class="stat-label">Expected Participants</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">4</div>
+      <div class="stat-label">Keynote Speakers</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">2</div>
+      <div class="stat-label">Days</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">4–6</div>
+      <div class="stat-label">Parallel Sessions</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">1</div>
+      <div class="stat-label">Special Panel</div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT STRIP -->
+<div class="about-strip">
+  <div class="about-strip-inner">
+    <div class="about-text">
+      <span class="badge badge-forest" style="margin-bottom:1rem;">National Conference</span>
+      <h2>Where research meets the classroom</h2>
+      <p>
+        ELT Conference 2026 brings together researchers, teacher educators, university instructors, and K–12 teachers from across Türkiye for two days of dialogue, discovery, and professional community-building.
+      </p>
+      <p>
+        Hosted by the English Language Teaching Program at Yeditepe University, the conference is designed as a balanced platform where academic inquiry and classroom practice speak to one another — and to each other.
+      </p>
+      <a href="about.html" class="btn btn-outline" style="margin-top:1rem;">Read More About the Conference</a>
+    </div>
+    <div class="about-visual">
+      <div class="date-card">
+        <div class="month">October 2026</div>
+        <div class="days">24–25</div>
+        <div class="year">Saturday & Sunday</div>
+        <div class="location">
+          Yeditepe University<br>
+          Ataşehir, Istanbul, Türkiye
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONFERENCE DAYS -->
+<section class="section section-alt">
+  <div class="section-title">
+    <h2>Conference Programme</h2>
+    <p>Two days designed to connect, inspire, and inform</p>
+    <span class="ornament"></span>
+  </div>
+  <div class="days-grid">
+    <div class="day-card">
+      <div class="day-header day1">
+        <div class="day-num">01</div>
+        <div class="day-info">
+          <div class="day-title">Practice Day</div>
+          <div class="day-date">Saturday, 24 October</div>
+        </div>
+      </div>
+      <div class="day-body">
+        <ul>
+          <li>Registration & welcome</li>
+          <li>Opening plenary session</li>
+          <li>Morning concurrent sessions</li>
+          <li>Workshops & hands-on activities</li>
+          <li>Practitioner presentations</li>
+          <li>Classroom-focused discussions</li>
+        </ul>
+      </div>
+    </div>
+    <div class="day-card">
+      <div class="day-header day2">
+        <div class="day-num">02</div>
+        <div class="day-info">
+          <div class="day-title">Research Day</div>
+          <div class="day-date">Sunday, 25 October</div>
+        </div>
+      </div>
+      <div class="day-body">
+        <ul>
+          <li>Plenary session</li>
+          <li>Research paper presentations</li>
+          <li>Academic concurrent sessions</li>
+          <li>Special panel: Teacher Research</li>
+          <li>Dedicated to Prof. Ayşe Akyel</li>
+          <li>Closing remarks</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PANEL SPOTLIGHT -->
+<section class="panel-spotlight">
+  <h2>Special Panel</h2>
+  <p>In honour of a distinguished voice in Turkish ELT, we dedicate a special panel to the legacy of teacher research and professional inquiry.</p>
+  <div class="panel-name">Professor Ayşe Akyel</div>
+  <p>Featuring former graduate students who are now active researchers and educators in the field.</p>
+  <a href="about.html#panel" class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,0.35);margin-top:1rem;">Learn More</a>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Submit your work</h2>
+  <p>We welcome submissions from researchers, teacher educators, classroom practitioners, and undergraduate students. The abstract submission deadline is 5 July 2026.</p>
+  <div class="cfp-deadline-note">
+    📅 Abstract submission deadline: <strong>5 July 2026</strong>
+  </div>
+  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+    <a href="cfp.html" class="btn btn-primary">View Call for Papers</a>
+    <a href="contact.html" class="btn btn-forest">Get in Touch</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h3>Building ELT Communities</h3>
+      <p>Research and Practice in Dialogue<br>24–25 October 2026 · Yeditepe University, Istanbul, Türkiye</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="cfp.html">Call for Papers</a></li>
+        <li><a href="speakers.html">Keynote Speakers</a></li>
+        <li><a href="registration.html">Registration</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Info</h4>
+      <ul>
+        <li><a href="venue.html">Venue &amp; Travel</a></li>
+        <li><a href="committee.html">Committee</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Yeditepe University ELT Program. All rights reserved.</span>
+    <span>eltconference7tepe.org</span>
+  </div>
+</footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('nav-links');
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+</script>
+
+</body>
+</html>
