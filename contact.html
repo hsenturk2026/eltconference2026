@@ -60,50 +60,46 @@
     <!-- FORM -->
     <div>
       <h3 style="color:var(--forest-dark);margin-bottom:1.5rem;">Send us a message</h3>
-      <form class="contact-form" id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <div class="contact-form" id="contact-form">
 
         <div class="form-row">
           <div>
             <label for="fname">First Name *</label>
-            <input type="text" id="fname" name="first_name" required placeholder="e.g. Ayşe">
+            <input type="text" id="fname" placeholder="e.g. Ayşe">
           </div>
           <div>
             <label for="lname">Last Name *</label>
-            <input type="text" id="lname" name="last_name" required placeholder="e.g. Yıldız">
+            <input type="text" id="lname" placeholder="e.g. Yıldız">
           </div>
         </div>
 
         <label for="email">Email Address *</label>
-        <input type="email" id="email" name="email" required placeholder="your@email.com">
+        <input type="email" id="email" placeholder="your@email.com">
 
         <label for="affiliation">Institution / Affiliation</label>
-        <input type="text" id="affiliation" name="affiliation" placeholder="e.g. Yeditepe University">
+        <input type="text" id="affiliation" placeholder="e.g. Yeditepe University">
 
         <label for="subject">Subject *</label>
-        <select id="subject" name="subject" required>
+        <select id="subject">
           <option value="" disabled selected>Select a topic…</option>
-          <option value="abstract">Abstract submission enquiry</option>
-          <option value="registration">Registration enquiry</option>
-          <option value="sponsorship">Sponsorship / Exhibition</option>
-          <option value="committee">Scientific committee interest</option>
-          <option value="venue">Venue / Travel</option>
-          <option value="press">Press / Media</option>
-          <option value="other">Other</option>
+          <option value="Abstract submission enquiry">Abstract submission enquiry</option>
+          <option value="Registration enquiry">Registration enquiry</option>
+          <option value="Sponsorship / Exhibition">Sponsorship / Exhibition</option>
+          <option value="Scientific committee interest">Scientific committee interest</option>
+          <option value="Venue / Travel">Venue / Travel</option>
+          <option value="Press / Media">Press / Media</option>
+          <option value="Other">Other</option>
         </select>
 
         <label for="message">Message *</label>
-        <textarea id="message" name="message" required placeholder="Please describe your enquiry…"></textarea>
+        <textarea id="message" placeholder="Please describe your enquiry…"></textarea>
 
         <div style="margin-top:1.5rem;">
-          <button type="submit" class="btn btn-primary" style="width:100%;">Send Message</button>
+          <button type="button" class="btn btn-primary" style="width:100%;" id="send-btn">Send Message</button>
         </div>
-        <p class="form-note">* Required fields. We aim to respond within 3 working days.</p>
-        <div class="success-msg" id="success-msg">✓ Thank you — your message has been sent. We'll be in touch shortly.</div>
-      </form>
-
-      <p style="font-size:0.82rem;color:var(--muted);margin-top:1rem;">
-        <em>Note: To enable this contact form, replace <code>YOUR_FORM_ID</code> with your Formspree form ID, or connect a backend of your choice.</em>
-      </p>
+        <p class="form-note">* Required fields. Clicking Send will open your email client with your message pre-filled. We aim to respond within 3 working days.</p>
+        <div class="success-msg" id="success-msg">✓ Your email client has opened with your message ready to send.</div>
+      </div>
     </div>
 
     <!-- CONTACT INFO -->
@@ -112,7 +108,7 @@
         <h4>Organising Committee</h4>
         <div class="contact-info-item">
           <span class="ci-label">Email</span>
-          <a href="mailto:info@eltconference7tepe.org">info@eltconference7tepe.org</a>
+          <a id="org-email-link" href="#">yuelt.conference@gmail.com</a>
         </div>
         <div class="contact-info-item">
           <span class="ci-label">Website</span>
@@ -168,11 +164,47 @@
   <div class="footer-bottom"><span>© 2026 Yeditepe University ELT Program. All rights reserved.</span><span>eltconference7tepe.org</span></div>
 </footer>
 <script>
+  // Build organiser email link safely
+  (function(){
+    var u="yuelt.conference",d="gmail.com";
+    var a=document.getElementById("org-email-link");
+    if(a){a.href="mailto:"+u+"@"+d;}
+  })();
+
   document.getElementById('hamburger').addEventListener('click',()=>document.getElementById('nav-links').classList.toggle('open'));
-  document.getElementById('contact-form').addEventListener('submit', function(e) {
-    // If using Formspree, remove this block. This is a fallback demo handler.
-    // e.preventDefault();
-    // document.getElementById('success-msg').style.display='block';
+
+  document.getElementById('send-btn').addEventListener('click', function() {
+    var fname       = document.getElementById('fname').value.trim();
+    var lname       = document.getElementById('lname').value.trim();
+    var email       = document.getElementById('email').value.trim();
+    var affiliation = document.getElementById('affiliation').value.trim();
+    var subject     = document.getElementById('subject').value;
+    var message     = document.getElementById('message').value.trim();
+
+    if (!fname || !lname || !email || !subject || !message) {
+      alert('Please fill in all required fields (First Name, Last Name, Email, Subject, and Message).');
+      return;
+    }
+
+    var u = 'yuelt.conference';
+    var d = 'gmail.com';
+    var to = u + '@' + d;
+
+    var fullSubject = '[ELT Conference 2026] ' + subject;
+
+    var body =
+      'Name: ' + fname + ' ' + lname + '\n' +
+      'Email: ' + email + '\n' +
+      (affiliation ? 'Institution: ' + affiliation + '\n' : '') +
+      '\n' +
+      message;
+
+    var mailto = 'mailto:' + to +
+      '?subject=' + encodeURIComponent(fullSubject) +
+      '&body=' + encodeURIComponent(body);
+
+    window.location.href = mailto;
+    document.getElementById('success-msg').style.display = 'block';
   });
 </script>
 </body>
