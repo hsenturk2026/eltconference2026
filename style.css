@@ -96,7 +96,7 @@ nav {
 
 .nav-logo-text {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--forest-dark);
   line-height: 1.2;
@@ -107,7 +107,7 @@ nav {
 
 .nav-logo-text span {
   display: block;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-family: 'DM Sans', sans-serif;
   font-weight: 300;
   color: var(--muted);
@@ -118,7 +118,7 @@ nav {
 
 .nav-links {
   display: flex;
-  gap: 1.25rem;
+  gap: 1rem;
   list-style: none;
   flex-shrink: 0;
 }
@@ -498,8 +498,7 @@ footer {
   .footer-brand { grid-column: 1 / -1; }
 }
 
-@media (max-width: 640px) {
-  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+@media (max-width: 1024px) {
   .nav-links { display: none; }
   .nav-hamburger { display: flex; }
   .nav-links.open {
@@ -513,7 +512,23 @@ footer {
     border-bottom: 1px solid var(--border);
     padding: 1.5rem 2rem;
     gap: 1.25rem;
+    z-index: 99;
   }
+  .nav-links.open a {
+    font-size: 0.95rem;
+    white-space: normal;
+  }
+  .nav-links.open .nav-register {
+    display: inline-block;
+    width: fit-content;
+    margin-top: 0.25rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .nav-logo-divider { display: none; }
+  .nav-logo-text span { display: none; }
   .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
   .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
 }
