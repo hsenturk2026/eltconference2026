@@ -102,7 +102,7 @@ nav {
   flex-direction: column;
 }
 
-.nav-logo span {
+.nav-logo-text span {
   display: block;
   font-size: 0.72rem;
   font-family: 'DM Sans', sans-serif;
