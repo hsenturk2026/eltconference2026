@@ -74,7 +74,7 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 64px;
+  height: 88px;
 }
 
 .nav-logo {
@@ -84,6 +84,9 @@ nav {
   color: var(--forest-dark);
   text-decoration: none;
   line-height: 1.2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .nav-logo span {
