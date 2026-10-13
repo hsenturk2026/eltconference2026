@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programme – ELT Conference 2026</title>
+  <meta name="description" content="Full programme of ELT Conference 2026 at Yeditepe University, 24–25 October 2026: plenary talks and abstracts, concurrent sessions, the Special Panel and venues.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='5' fill='%232B4035'/><text x='50%25' y='44%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-size='13' font-weight='700' fill='%23E8956E'>YU</text><text x='50%25' y='78%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-size='9' font-weight='400' fill='rgba(255,255,255,0.7)'>ELT</text></svg>">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .prog-wrap { max-width: 980px; margin: 0 auto; }
+
+    /* Intro facts */
+    .prog-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 3rem; }
+    .prog-fact { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 1.1rem 1.25rem; }
+    .prog-fact .k { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+    .prog-fact .v { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--forest-dark); line-height: 1.3; margin-top: 0.2rem; }
+
+    /* Day tabs */
+    .day-tabs { display: flex; gap: 0.75rem; margin-bottom: 2rem; }
+    .day-tab {
+      flex: 1; text-align: left; cursor: pointer; font-family: inherit;
+      background: #fff; border: 1px solid var(--border); border-radius: 10px;
+      padding: 1rem 1.5rem; display: flex; align-items: center; gap: 1rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .day-tab .n { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; line-height: 1; color: var(--border); }
+    .day-tab .t { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; color: var(--forest-dark); display: block; }
+    .day-tab .d { font-size: 0.8rem; color: var(--muted); display: block; }
+    .day-tab[aria-selected="true"].d1 { background: var(--terracotta); border-color: var(--terracotta); }
+    .day-tab[aria-selected="true"].d2 { background: var(--forest); border-color: var(--forest); }
+    .day-tab[aria-selected="true"] .n { color: rgba(255,255,255,0.4); }
+    .day-tab[aria-selected="true"] .t { color: #fff; }
+    .day-tab[aria-selected="true"] .d { color: rgba(255,255,255,0.7); }
+    .day-tab:focus-visible { outline: 2px solid var(--terracotta-dark); outline-offset: 2px; }
+
+    .day-panel[hidden] { display: none; }
+    .day-heading { display: none; }
+
+    /* Timeline rows */
+    .sched { list-style: none; border-top: 1px solid var(--border); }
+    .slot { scroll-margin-top: 84px; display: grid; grid-template-columns: 130px 1fr; gap: 1.5rem; padding: 1.25rem 0; border-bottom: 1px solid var(--border); }
+    .slot-time { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: var(--forest-dark); font-weight: 500; white-space: nowrap; padding-top: 0.1rem; }
+    .slot-type { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; color: var(--muted); margin-bottom: 0.3rem; }
+    .slot-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--forest-dark); line-height: 1.3; }
+    .slot-venue { font-size: 0.82rem; color: var(--muted); margin-top: 0.35rem; display: flex; align-items: flex-start; gap: 0.4rem; }
+    .slot-venue::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--border); margin-top: 0.45rem; flex-shrink: 0; }
+    .slot-note { font-size: 0.9rem; color: var(--ink-light); margin-top: 0.5rem; line-height: 1.7; }
+
+    /* Breaks: quieter */
+    .slot.brk { padding: 0.75rem 0; }
+    .slot.brk .slot-time { font-size: 1rem; color: var(--muted); }
+    .slot.brk .slot-title { font-family: 'DM Sans', sans-serif; font-size: 0.92rem; color: var(--ink-light); }
+    .slot.brk .slot-venue { margin-top: 0.15rem; }
+
+    /* Plenary */
+    .slot.plen { background: #fff; border: 1px solid var(--border); border-left: 4px solid var(--terracotta); border-radius: 0 10px 10px 0; padding: 1.75rem 1.75rem 1.75rem 1.5rem; margin: 1rem 0; }
+    .slot.plen .slot-type { color: var(--terracotta-dark); }
+    .talk-title { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.55rem; color: var(--forest-dark); line-height: 1.25; margin-bottom: 0.5rem; }
+    .talk-speaker { font-size: 0.95rem; color: var(--ink); font-weight: 400; }
+    .talk-speaker a { color: inherit; border-bottom: 1px solid var(--border); }
+    .talk-speaker a:hover { color: var(--terracotta); border-bottom-color: var(--terracotta); }
+    .talk-aff { font-size: 0.85rem; color: var(--muted); font-style: italic; }
+
+    details.abstract { margin-top: 1rem; }
+    details.abstract summary {
+      cursor: pointer; list-style: none; display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.85rem; font-weight: 400; color: var(--terracotta-dark);
+      border: 1px solid rgba(196,113,74,0.35); border-radius: 4px; padding: 0.4rem 0.9rem;
+    }
+    details.abstract summary::-webkit-details-marker { display: none; }
+    details.abstract summary::after { content: '+'; font-size: 1rem; line-height: 1; }
+    details.abstract[open] summary::after { content: '−'; }
+    details.abstract summary:hover { background: rgba(196,113,74,0.08); }
+    details.abstract .abs-body { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+    details.abstract .abs-body p { font-size: 0.93rem; line-height: 1.85; color: var(--ink-light); }
+
+    /* Concurrent blocks */
+    .slot.conc { background: var(--cream); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem 1.75rem 1.5rem 1.5rem; margin: 1rem 0; }
+    .slot.conc .slot-type { color: var(--forest); }
+    .mini-slots { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.75rem; }
+    .mini-slots span { font-size: 0.78rem; background: #fff; border: 1px solid var(--border); border-radius: 4px; padding: 0.2rem 0.6rem; color: var(--ink-light); }
+
+    /* Panel / social */
+    .slot.panel { background: var(--forest-dark); border-radius: 10px; padding: 1.75rem 1.75rem 1.75rem 1.5rem; margin: 1rem 0; border-bottom: none; }
+    .slot.panel .slot-time, .slot.panel .slot-title { color: #fff; }
+    .slot.panel .slot-type { color: var(--terracotta-light); }
+    .slot.panel .slot-note, .slot.panel .slot-venue { color: rgba(255,255,255,0.7); }
+    .slot.panel .slot-venue::before { background: rgba(255,255,255,0.3); }
+    .slot.panel a { color: var(--terracotta-light); }
+    .slot.social .slot-type { color: var(--gold); }
+
+    /* Venue key */
+    .venue-key { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .venue-key > div { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 1.1rem 1.25rem; }
+    .venue-key h4 { color: var(--forest-dark); font-size: 1.1rem; margin-bottom: 0.15rem; }
+    .venue-key .tr { font-size: 0.8rem; color: var(--muted); font-style: italic; margin-bottom: 0.4rem; }
+    .venue-key p { font-size: 0.88rem; color: var(--ink-light); line-height: 1.65; }
+
+    .prog-actions { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+    .prog-actions p { font-size: 0.85rem; color: var(--muted); }
+
+    @media (max-width: 760px) {
+      .prog-facts { grid-template-columns: 1fr; }
+      .venue-key { grid-template-columns: 1fr; }
+      .slot { grid-template-columns: 1fr; gap: 0.35rem; }
+      .slot.plen, .slot.conc, .slot.panel { padding: 1.25rem; }
+      .talk-title { font-size: 1.35rem; }
+      .day-tab { padding: 0.85rem 1rem; }
+      .day-tab .n { font-size: 1.7rem; }
+    }
+
+    @media print {
+      nav, footer, .page-hero, .day-tabs, .prog-actions, details.abstract summary { display: none !important; }
+      .day-panel[hidden] { display: block !important; }
+      .day-heading { display: block; color: var(--forest-dark); margin: 1.5rem 0 0.5rem; }
+      .section { padding: 1rem 0; }
+      .slot { break-inside: avoid; }
+      .slot.panel { background: #fff; border: 1px solid var(--border); }
+      .slot.panel .slot-time, .slot.panel .slot-title { color: var(--forest-dark); }
+      .slot.panel .slot-note, .slot.panel .slot-venue { color: var(--ink-light); }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="yulogo.svg" alt="Yeditepe University" style="height:32px;width:auto;display:block;flex-shrink:0;">
+      <span class="nav-logo-divider"></span>
+      <span class="nav-logo-text">ELT Conference 2026<span>Yeditepe University · Istanbul</span></span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="cfp.html">CFP</a></li>
+      <li><a href="speakers.html">Speakers</a></li>
+      <li><a href="programme.html" class="active">Programme</a></li>
+      <li><a href="registration.html">Registration</a></li>
+      <li><a href="venue.html">Venue</a></li>
+      <li><a href="committee.html">Committee</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="registration.html" class="nav-register">Register</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <h1>Conference Programme</h1>
+  <p>Saturday 24 – Sunday 25 October 2026 · Arts and Design Faculty Building, Yeditepe University</p>
+</div>
+
+<section class="section">
+  <div class="prog-wrap">
+
+    <div class="prog-facts">
+      <div class="prog-fact"><div class="k">Main venue</div><div class="v">Arts and Design Faculty Building<br><span style="font-size:0.95rem;color:var(--muted);font-style:italic;">STF · Yeditepe University campus</span></div></div>
+      <div class="prog-fact"><div class="k">Concurrent presentations</div><div class="v">25 min talk + 5 min Q&amp;A<br><span style="font-size:0.95rem;color:var(--muted);font-style:italic;">three 30-minute slots per block</span></div></div>
+      <div class="prog-fact"><div class="k">Plenaries &amp; panel</div><div class="v">Arts and Design Faculty<br><span style="font-size:0.95rem;color:var(--muted);font-style:italic;">STF 8th Floor</span></div></div>
+    </div>
+
+    <div class="day-tabs" role="tablist" aria-label="Conference days">
+      <button class="day-tab d1" role="tab" id="tab-day1" aria-controls="day1" aria-selected="true">
+        <span class="n">01</span><span><span class="t">Practice Day</span><span class="d">Saturday, 24 October</span></span>
+      </button>
+      <button class="day-tab d2" role="tab" id="tab-day2" aria-controls="day2" aria-selected="false" tabindex="-1">
+        <span class="n">02</span><span><span class="t">Research Day</span><span class="d">Sunday, 25 October</span></span>
+      </button>
+    </div>
+
+    <!-- ═══════════ DAY 1 ═══════════ -->
+    <div class="day-panel" id="day1" role="tabpanel" aria-labelledby="tab-day1">
+      <h2 class="day-heading">Day 1 · Practice Day · Saturday, 24 October</h2>
+      <ol class="sched">
+
+        <li class="slot brk">
+          <div class="slot-time">08:30</div>
+          <div>
+            <div class="slot-title">Registration &amp; welcome coffee</div>
+            <div class="slot-venue">Arts and Design Faculty Entrance Hall</div>
+          </div>
+        </li>
+
+        <li class="slot">
+          <div class="slot-time">09:30 – 10:00</div>
+          <div>
+            <div class="slot-type">Opening</div>
+            <div class="slot-title">Opening Remarks</div>
+            <div class="slot-venue">Arts and Design Faculty Conference Hall · STF 8th Floor</div>
+          </div>
+        </li>
+
+        <li class="slot plen" id="borg">
+          <div class="slot-time">10:00 – 11:00</div>
+          <div>
+            <div class="slot-type">Opening Plenary</div>
+            <div class="talk-title">Collaborative Professional Development</div>
+            <div class="talk-speaker"><a href="speakers.html#borg">Professor Simon Borg</a></div>
+            <div class="talk-aff">Educational Consultant · ELT &amp; Language Teacher Education</div>
+            <div class="slot-venue">Arts and Design Faculty Conference Hall · STF 8th Floor</div>
+            <details class="abstract">
+              <summary>Read abstract</summary>
+              <div class="abs-body">
+                <p>Teacher professional development is often treated as an individual activity, but teacher learning can be significantly shaped by interaction with colleagues. This talk examines collaborative professional development: sustained strategies through which teachers learn together and from one another. Drawing on social models of teacher learning, it argues that collaboration can extend the scope, depth and durability of professional development by enabling teachers to share expertise, examine practice collectively, test ideas in context and strengthen professional agency. The discussion highlights collaborative strategies and the conditions that support them, as well as recurring practical and organisational challenges. It also considers how teachers and educational leaders can establish productive conditions and evaluate collaborative initiatives. The central argument is that collaboration adds value when it is sustained, purposeful and closely connected to teachers’ work. Under these conditions, learning with colleagues can generate forms of understanding and change that are difficult to achieve through individual professional development alone.</p>
+              </div>
+            </details>
+          </div>
+        </li>
+
+        <li class="slot brk">
+          <div class="slot-time">11:00 – 11:30</div>
+          <div>
+            <div class="slot-title">Coffee break</div>
+            <div class="slot-venue">Arts and Design Faculty Foyer · STF 8th Floor</div>
+          </div>
+        </li>
+
+        <li class="slot conc">
+          <div class="slot-time">11:30 – 13:00</div>
+          <div>
+            <div class="slot-type">Concurrent Sessions · Block A</div>
+            <div class="slot-title">Workshops &amp; Practitioner Presentations</div>
+            <div class="mini-slots"><span>11:30 – 12:00</span><span>12:00 – 12:30</span><span>12:30 – 13:00</span></div>
+            <div class="slot-venue">Arts and Design Faculty Building · Rooms STF201–STF205, STF301–STF305, STF401–STF404 · Workshops in Rooms STF214, STF216 &amp; STF217</div>
+          </div>
+        </li>
+
+        <li class="slot brk">
+          <div class="slot-time">13:00 – 14:00</div>
+          <div>
+            <div class="slot-title">Lunch</div>
+            <div class="slot-venue">Dining Hall, Social Facilities Building</div>
+          </div>
+        </li>
+
+        <li class="slot plen" id="camlibel-acar">
+          <div class="slot-time">14:15 – 15:15</div>
+          <div>
+            <div class="slot-type">Plenary</div>
+            <div class="talk-title">From Past Research to Future Classroom Inquiry: Insights, Examples, and New Possibilities</div>
+            <div class="talk-speaker"><a href="speakers.html#camlibel-acar">Dr. Zeynep Çamlıbel-Acar</a></div>
+            <div class="talk-aff">Assistant Professor · Marmara University</div>
+            <div class="slot-venue">Arts and Design Faculty Conference Hall · STF 8th Floor</div>
+            <details class="abstract">
+              <summary>Read abstract</summary>
+              <div class="abs-body">
+                <p>In today’s language classrooms, adopting pedagogical approaches and methods that are firmly grounded in research is more imperative than ever. At the same time, Applied Linguistics research must remain responsive to the evolving needs and realities of classrooms. This dynamic relationship between research and practice provides the central perspective for this presentation. The session will primarily explore key characteristics emerging from my research in various domains, including bilingual and biliteracy development, language skills development and instruction, language teacher education and professional development, emergency distance education, and early English language learning and teaching across contexts, with insights that may inform and inspire EFL teacher-researchers. It will also introduce resources that can help strengthen and sustain connections between research and practice in language education. An interactive component will invite participants to reflect on their own interests, needs, and experiences, and to consider how more research or practice might be meaningfully integrated into their work.</p>
+              </div>
+            </details>
+          </div>
+        </li>
+
+        <li class="slot brk">
+          <div class="slot-time">15:15 – 15:45</div>
+          <div>
+            <div class="slot-title">Coffee break</div>
+            <div class="slot-venue">Arts and Design Faculty Foyer · STF 8th Floor</div>
+          </div>
+        </li>
+
+        <li class="slot conc">
+          <div class="slot-time">15:45 – 17:15</div>
+          <div>
+            <div class="slot-type">Concurrent Sessions · Block B</div>
+            <div class="slot-title">Workshops &amp; Practitioner Presentations</div>
+            <div class="mini-slots"><span>15:45 – 16:15</span><span>16:15 – 16:45</span><span>16:45 – 17:15</span></div>
+            <div class="slot-venue">Arts and Design Faculty Building · Rooms STF201–STF205, STF301–STF305, STF401–STF404 · Workshops in Rooms STF214, STF216 &amp; STF217</div>
+          </div>
+        </li>
+
+        <li class="slot social">
+          <div class="slot-time">17:30 – 19:30</div>
+          <div>
+            <div class="slot-type">Social Event · All Attendees</div>
+            <div class="slot-title">Welcome Reception</div>
+            <div class="slot-note">An informal standing reception with appetizers and music — a chance to meet colleagues from across Türkiye.</div>
+            <div class="slot-venue">Lawn behind the Arts and Design Faculty Building</div>
+          </div>
+        </li>
+
+      </ol>
+    </div>
+
+    <!-- ═══════════ DAY 2 ═══════════ -->
+    <div class="day-panel" id="day2" role="tabpanel" aria-labelledby="tab-day2" hidden>
+      <h2 class="day-heading">Day 2 · Research Day · Sunday, 25 October</h2>
+      <ol class="sched">
+
+        <li class="slot brk">
+          <div class="slot-time">09:30</div>
+          <div>
+            <div class="slot-title">Arrival &amp; coffee</div>
+            <div class="slot-venue">Arts and Design Faculty Entrance Hall</div>
+          </div>
+        </li>
+
+        <li class="slot plen" id="farhady">
+          <div class="slot-time">10:00 – 11:00</div>
+          <div>
+            <div class="slot-type">Plenary</div>
+            <div class="talk-title">Research and Practice in Dialogue: The Case of Language Assessment</div>
+            <div class="talk-speaker"><a href="speakers.html#farhady">Professor Hossein Farhady</a></div>
+            <div class="talk-aff">Assessment &amp; Research Consultant</div>
+            <div class="slot-venue">Arts and Design Faculty Conference Hall · STF 8th Floor</div>
+            <details class="abstract">
+              <summary>Read abstract</summary>
+              <div class="abs-body">
+                <p>The purpose of this presentation is threefold. First, I will discuss the relationship between research and practice on the one hand and other determining institutions involved in education, on the other. I will also argue that research and practice are often (if not always) under the influence of institutions that manage the nature of the dialogue between research and practice. Second, I will explain how practice chases research and sometimes within a long distance. To illustrate, I will take two theoretical frameworks and discuss the challenges we all face through moving from theory to practice. Third, I will discuss the necessity of coordination and cooperation among all stakeholders. Otherwise, any institution in the cycle, no matter how advanced and up to date it is, will most likely fail in closing the gap between research and practice.</p>
+              </div>
+            </details>
+          </div>
+        </li>
+
+        <li class="slot brk">
+          <div class="slot-time">11:00 – 11:30</div>
+          <div>
+            <div class="slot-title">Coffee break</div>
+            <div class="slot-venue">Arts and Design Faculty Foyer · STF 8th Floor</div>
+          </div>
+        </li>
+
+        <li class="slot conc">
+          <div class="slot-time">11:30 – 13:00</div>
+          <div>
+            <div class="slot-type">Concurrent Sessions · Block C</div>
+            <div class="slot-title">Research Paper Presentations</div>
+            <div class="mini-slots"><span>11:30 – 12:00</span><span>12:00 – 12:30</span><span>12:30 – 13:00</span></div>
+            <div class="slot-venue">Arts and Design Faculty Building · Rooms STF201–STF205, STF301–STF305, STF401–STF404</div>
+          </div>
+        </li>
+
+        <li class="slot brk">
+          <div class="slot-time">13:00 – 14:00</div>
+          <div>
+            <div class="slot-title">Lunch</div>
+            <div class="slot-venue">Dining Hall, Social Facilities Building</div>
+          </div>
+        </li>
+
+        <li class="slot panel" id="panel">
+          <div class="slot-time">14:15 – 15:45</div>
+          <div>
+            <div class="slot-type">Special Panel</div>
+            <div class="slot-title">Teacher Research &amp; Professional Inquiry — in Honour of Professor Ayşe S. Akyel</div>
+            <div class="slot-note">Former graduate students of Professor Akyel, now active researchers and educators, reflect on teacher-researcher identity, academic mentorship and professional inquiry. The panel concludes with remarks by Professor Akyel. <a href="about.html#panel">About the panel →</a></div>
+            <div class="slot-venue">Arts and Design Faculty Conference Hall · STF 8th Floor</div>
+          </div>
+        </li>
+
+        <li class="slot">
+          <div class="slot-time">15:45 – 16:00</div>
+          <div>
+            <div class="slot-type">Closing</div>
+            <div class="slot-title">Closing Remarks</div>
+            <div class="slot-venue">Arts and Design Faculty Conference Hall · STF 8th Floor</div>
+          </div>
+        </li>
+
+      </ol>
+    </div>
+
+    <div class="prog-actions">
+      <p>The room-by-room schedule of concurrent presentations will be published shortly. The programme may be subject to minor changes.</p>
+      <button class="btn btn-outline" id="print-btn" type="button">Print full programme</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- VENUE KEY -->
+<section class="section section-alt">
+  <div class="section-title">
+    <h2>Finding Your Way</h2>
+    <p>All conference venues are on the Yeditepe University campus in Ataşehir</p>
+    <span class="ornament"></span>
+  </div>
+  <div class="prog-wrap venue-key">
+    <div>
+      <h4>Conference Hall</h4>
+      <div class="tr">Arts and Design Faculty · STF 8th Floor</div>
+      <p>Opening, all three plenaries, the Special Panel and closing remarks.</p>
+    </div>
+    <div>
+      <h4>Foyer &amp; Entrance Hall</h4>
+      <div class="tr">Arts and Design Faculty</div>
+      <p>Coffee breaks in the Foyer (STF 8th Floor). Registration and morning coffee in the Entrance Hall.</p>
+    </div>
+    <div>
+      <h4>Session Rooms</h4>
+      <div class="tr">Arts and Design Faculty Building · 2nd, 3rd &amp; 4th floors</div>
+      <p>Presentations in Rooms STF201–STF205, STF301–STF305 and STF401–STF404. Workshops in Rooms STF214, STF216 and STF217 (Saturday only).</p>
+    </div>
+    <div>
+      <h4>Dining Hall</h4>
+      <div class="tr">Social Facilities Building</div>
+      <p>Lunch on both days, 13:00–14:00. The Welcome Reception takes place on the lawn behind the Arts and Design Faculty Building.</p>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:2.5rem;">
+    <a href="venue.html" class="btn btn-forest">Venue &amp; Travel Information</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><h3>Building ELT Communities</h3><p>Research and Practice in Dialogue<br>24–25 October 2026 · Yeditepe University, Istanbul, Türkiye</p></div>
+    <div class="footer-col"><h4>Navigate</h4><ul><li><a href="about.html">About</a></li><li><a href="cfp.html">CFP</a></li><li><a href="speakers.html">Plenary Speakers</a></li><li><a href="programme.html">Programme</a></li><li><a href="registration.html">Registration</a></li></ul></div>
+    <div class="footer-col"><h4>Info</h4><ul><li><a href="venue.html">Venue &amp; Travel</a></li><li><a href="committee.html">Committee</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 Yeditepe University ELT Program. All rights reserved.</span><span>eltconference7tepe.org</span></div>
+</footer>
+
+<script>
+  document.getElementById('hamburger').addEventListener('click', () => document.getElementById('nav-links').classList.toggle('open'));
+
+  const tabs = Array.from(document.querySelectorAll('.day-tab'));
+  function showDay(id, focus) {
+    tabs.forEach(t => {
+      const on = t.getAttribute('aria-controls') === id;
+      t.setAttribute('aria-selected', on);
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+      if (on && focus) t.focus();
+    });
+  }
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => {
+      showDay(t.getAttribute('aria-controls'));
+      history.replaceState(null, '', '#' + t.getAttribute('aria-controls'));
+    });
+    t.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        const next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+        showDay(next.getAttribute('aria-controls'), true);
+      }
+    });
+  });
+
+  // Deep links: #day2, or a plenary anchor (#borg, #camlibel-acar, #farhady, #panel)
+  function openFromHash() {
+    const id = location.hash.slice(1);
+    if (!id) return;
+    const el = document.getElementById(id);
+    if (!el) return;
+    const panel = el.classList.contains('day-panel') ? el : el.closest('.day-panel');
+    if (panel) showDay(panel.id);
+    const d = el.querySelector && el.querySelector('details.abstract');
+    if (d) d.open = true;
+    if (!el.classList.contains('day-panel')) setTimeout(() => el.scrollIntoView({ block: 'start' }), 50);
+  }
+  openFromHash();
+  window.addEventListener('hashchange', openFromHash);
+
+  // Printing: show both days with all abstracts expanded
+  let printOpened = [];
+  window.addEventListener('beforeprint', () => {
+    printOpened = Array.from(document.querySelectorAll('details.abstract:not([open])'));
+    printOpened.forEach(d => d.open = true);
+  });
+  window.addEventListener('afterprint', () => { printOpened.forEach(d => d.open = false); });
+  document.getElementById('print-btn').addEventListener('click', () => window.print());
+</script>
+</body>
+</html>
