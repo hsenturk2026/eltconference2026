@@ -81,6 +81,9 @@
     .mini-slots { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.75rem; }
     .mini-slots span { font-size: 0.78rem; background: #fff; border: 1px solid var(--border); border-radius: 4px; padding: 0.2rem 0.6rem; color: var(--ink-light); }
 
+    .slot.poster { background: #fff; border: 1px solid var(--border); border-left: 4px solid var(--gold); border-radius: 0 10px 10px 0; padding: 1.25rem 1.75rem 1.25rem 1.5rem; margin: 1rem 0; }
+    .slot.poster .slot-type { color: var(--gold); }
+
     /* Panel / social */
     .slot.panel { background: var(--forest-dark); border-radius: 10px; padding: 1.75rem 1.75rem 1.75rem 1.5rem; margin: 1rem 0; border-bottom: none; }
     .slot.panel .slot-time, .slot.panel .slot-title { color: #fff; }
@@ -104,7 +107,7 @@
       .prog-facts { grid-template-columns: 1fr; }
       .venue-key { grid-template-columns: 1fr; }
       .slot { grid-template-columns: 1fr; gap: 0.35rem; }
-      .slot.plen, .slot.conc, .slot.panel { padding: 1.25rem; }
+      .slot.plen, .slot.conc, .slot.panel, .slot.poster { padding: 1.25rem; }
       .talk-title { font-size: 1.35rem; }
       .day-tab { padding: 0.85rem 1rem; }
       .day-tab .n { font-size: 1.7rem; }
@@ -252,10 +255,11 @@
           </div>
         </li>
 
-        <li class="slot brk">
+        <li class="slot poster">
           <div class="slot-time">15:15 – 15:45</div>
           <div>
-            <div class="slot-title">Coffee break</div>
+            <div class="slot-type">Poster Session</div>
+            <div class="slot-title">Poster Presentations</div>
             <div class="slot-venue">Arts and Design Faculty Foyer · STF 8th Floor</div>
           </div>
         </li>
@@ -288,10 +292,11 @@
       <h2 class="day-heading">Day 2 · Research Day · Sunday, 25 October</h2>
       <ol class="sched">
 
-        <li class="slot brk">
-          <div class="slot-time">09:30</div>
+        <li class="slot poster">
+          <div class="slot-time">09:30 – 10:00</div>
           <div>
-            <div class="slot-title">Arrival &amp; coffee</div>
+            <div class="slot-type">Poster Session</div>
+            <div class="slot-title">Poster Presentations</div>
             <div class="slot-venue">Arts and Design Faculty Entrance Hall</div>
           </div>
         </li>
@@ -446,7 +451,7 @@
     if (!el) return;
     const panel = el.classList.contains('day-panel') ? el : el.closest('.day-panel');
     if (panel) showDay(panel.id);
-    const d = el.querySelector && el.querySelector('details.abstract');
+    const d = !el.classList.contains('day-panel') && el.querySelector('details.abstract');
     if (d) d.open = true;
     if (!el.classList.contains('day-panel')) setTimeout(() => el.scrollIntoView({ block: 'start' }), 50);
   }
