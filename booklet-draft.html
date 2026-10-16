@@ -132,6 +132,21 @@ td.free{color:var(--muted);font-size:14px;font-style:italic}
 @media (prefers-reduced-motion:reduce){.live::before{animation:none}}
 .sess.is-live,td.is-live{box-shadow:inset 0 0 0 2px var(--live)}
 .livebar{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;font-size:15.5px;margin:0 0 16px;padding:10px 14px;border:1px solid var(--live);border-radius:10px;background:var(--surface)}
+.star{font:inherit;font-size:13px;font-weight:500;border:1px solid var(--line);background:var(--surface);color:var(--accent);border-radius:999px;padding:3px 11px;cursor:pointer;justify-self:start;margin-top:6px}
+.star[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.gstar{float:right;font-size:16px;line-height:1;border:none;background:none;color:var(--muted);cursor:pointer;padding:0 0 4px 6px}
+.gstar[aria-pressed="true"]{color:var(--accent)}
+td.picked{background:var(--accent-soft)}
+.mine-day{margin-bottom:28px}
+.mine-row{display:grid;grid-template-columns:130px minmax(0,1fr) auto;gap:14px;align-items:start;padding-block:14px;border-top:1px solid var(--line)}
+.mine-row .where{font-family:var(--f-mono);font-size:13px;color:var(--accent);font-weight:500}
+.mine-row .gotobtn{font:inherit;background:none;border:none;padding:0;text-align:left;cursor:pointer;color:inherit}
+.mine-row .gotobtn:hover .talk-title{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+.clash{display:inline-block;font-size:12.5px;font-weight:600;color:var(--live);margin-top:4px}
+.empty-mine{background:var(--surface);border:1px dashed var(--line);border-radius:10px;padding:22px 20px;max-width:60ch}
+.empty-mine h3{font-family:var(--f-display);font-weight:500;font-size:22px;margin:0 0 6px}
+.mine-note{color:var(--muted);font-size:14px;margin:0 0 14px}
+@media (max-width:640px){.mine-row{grid-template-columns:1fr}}
 footer{border-top:1px solid var(--line);color:var(--muted);font-size:15px}
 footer .wrap{padding-block:20px;display:flex;flex-wrap:wrap;gap:6px 24px}
 @media (max-width:640px){.row{grid-template-columns:1fr;gap:6px}.time{padding-top:0}}
@@ -176,8 +191,13 @@ const toMin=s=>{const [h,m]=s.split(':').map(Number);return h*60+m};
 function tick(){const n=nowIst();let any=[];document.querySelectorAll('[data-live]').forEach(el=>{const [d,a,b]=el.dataset.live.split('|');const on=ISO[d]===n.date&&n.min>=toMin(a)&&n.min<toMin(b);el.hidden=!on;const box=el.closest('.sess,td');if(box&&!box.classList.contains('posterbox'))box.classList.toggle('is-live',on&&!!el.closest('.talk,.gcell'));});
   const bar=document.getElementById('livebar');if(!bar)return;const cur=[];DAYS.forEach(d=>{if(ISO[d.key]!==n.date)return;d.items.forEach(i=>{const [a,b]=i.t.split('–');if(n.min>=toMin(a)&&n.min<toMin(b))cur.push(i.kind==='block'?'Concurrent Sessions '+i.name+' ('+i.t+')':i.kind==='posters'?'Poster session ('+i.t+')':i.title+' ('+i.t+')')})});
   bar.hidden=!cur.length;bar.innerHTML='<span class="live">Live now</span><span>'+cur.map(esc).join(' · ')+'</span>';}
+const KEY='yuelt2026-myschedule';let MINE=new Set();try{MINE=new Set(JSON.parse(localStorage.getItem(KEY)||'[]'))}catch(_){}
+function saveMine(){try{localStorage.setItem(KEY,JSON.stringify([...MINE]))}catch(_){}}
+const LOOK={};DAYS.forEach(d=>d.items.forEach(i=>{if(i.kind==='block')i.sessions.forEach(s=>s.talks.forEach(x=>LOOK[x.id]={t:x,s,d}))}));
+const starBtn=id=>`<button class="star" type="button" data-star="${id}" aria-pressed="${MINE.has(id)}">${MINE.has(id)?'★ In my schedule':'☆ Add to my schedule'}</button>`;
+const gStar=id=>`<button class="gstar" type="button" data-star="${id}" aria-pressed="${MINE.has(id)}" aria-label="${MINE.has(id)?'Remove from':'Add to'} my schedule">${MINE.has(id)?'★':'☆'}</button>`;
 const out=document.getElementById('out'), tabs=document.getElementById('tabs'), q=document.getElementById('q'), exp=document.getElementById('expand');
-const h0=(location.hash||'').replace('#','');let day=['sat','sun','glance'].includes(h0)?h0:'glance', open=false;
+const h0=(location.hash||'').replace('#','');let day=['sat','sun','glance','mine'].includes(h0)?h0:'glance', open=false;
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fold=s=>s.toLocaleLowerCase('tr').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/ı/g,'i');
 function hl(text,term){const e=esc(text);if(!term)return e;const f=fold(text);let i=f.indexOf(term);if(i<0)return e;
@@ -192,7 +212,7 @@ function talkHTML(t,term,poster){
     <div class="talk-title">${hl(t.ti,term)}</div>
     <div class="talk-by">${hl(t.by,term)}</div>
     <div class="talk-aff">${hl(t.aff,term)}</div>
-    <details${absOpen?' open':''}><summary>Abstract</summary><div class="abs">${paras}</div>${t.kw?`<div class="kw"><b>Keywords:</b> ${esc(t.kw)}</div>`:''}</details>
+    ${poster?'':starBtn(t.id)}<details${absOpen?' open':''}><summary>Abstract</summary><div class="abs">${paras}</div>${t.kw?`<div class="kw"><b>Keywords:</b> ${esc(t.kw)}</div>`:''}</details>
   </div>`;}
 function sessHTML(s,term){
   const chairHit=term&&s.chair&&fold(s.chair).includes(term);
@@ -228,28 +248,42 @@ function glanceHTML(){
       const rows=slots.map((sl,ri)=>'<tr><th class="slot" scope="row">'+sl+'</th>'+ss.map((s,ci)=>{
         if(skip[ci+'_'+ri])return '';
         const tk=s.talks.find(x=>x.t===sl);
-        if(s.ws){ if(ri===0){skip[ci+'_1']=1;return `<td class="ws" rowspan="2">${cell(tk,true)}</td>`} return '<td class="free">–</td>'; }
-        return tk?`<td>${cell(tk)}</td>`:'<td class="free">Free slot</td>';
+        if(s.ws){ if(ri===0){skip[ci+'_1']=1;return `<td class="ws${MINE.has(tk.id)?' picked':''}" data-cell="${tk.id}" rowspan="2">${cell(tk,true)}</td>`} return '<td class="free">–</td>'; }
+        return tk?`<td class="${MINE.has(tk.id)?'picked':''}" data-cell="${tk.id}">${cell(tk)}</td>`:'<td class="free">Free slot</td>';
       }).join('')+'</tr>').join('');
       return `<div class="gblock"><h3>Concurrent Sessions ${b.name}<span>${b.t}</span></h3><div class="gscroll"><table class="g"><thead><tr><th class="slot"></th>${head}</tr></thead><tbody>${rows}</tbody></table></div></div>`;
     }).join('');
     return `<div class="glance-day"><div class="dayhead"><h2>${d.label}, ${d.date}</h2><span>${d.theme}</span></div><div class="glance-fixed">${fixed}</div>${blocks}</div>`;
   }).join('')+'<p class="note">Select a presentation to read its abstract.</p>';
-  function cell(t,ws){return `<button class="gcell" type="button" data-goto="${t.id}"><div class="gid">${t.id.slice(-3)}${ws?' · '+t.t+'–'+t.e:''}${t.online?' <span class="pill online">Online</span>':''} ${LB(t.day,t.t,t.e)}</div><div class="gt">${esc(t.ti)}</div><div class="gby">${esc(surnames(t.by))}</div></button>`}
+  function cell(t,ws){return gStar(t.id)+`<button class="gcell" type="button" data-goto="${t.id}"><div class="gid">${t.id.slice(-3)}${ws?' · '+t.t+'–'+t.e:''}${t.online?' <span class="pill online">Online</span>':''} ${LB(t.day,t.t,t.e)}</div><div class="gt">${esc(t.ti)}</div><div class="gby">${esc(surnames(t.by))}</div></button>`}
 }
 function add(t,m){let [h,mi]=t.split(':').map(Number);mi+=m;h+=Math.floor(mi/60);return String(h).padStart(2,'0')+':'+String(mi%60).padStart(2,'0')}
+function mineHTML(){
+  const picks=[...MINE].map(id=>LOOK[id]).filter(Boolean);
+  if(!picks.length)return `<div class="empty-mine"><h3>Your schedule is empty</h3><p>Select <b>☆ Add to my schedule</b> under any presentation in the Saturday or Sunday tab, or the ☆ in an at-a-glance cell. Your choices appear here in time order, with a warning if two of them overlap.</p><p class="mine-note">Your schedule is saved in this browser on this device only.</p></div>`;
+  const ord={sat:0,sun:1};picks.sort((a,b)=>ord[a.d.key]-ord[b.d.key]||a.t.t.localeCompare(b.t.t));
+  const clash=p=>picks.filter(o=>o!==p&&o.d.key===p.d.key&&toMin(o.t.t)<toMin(p.t.e)&&toMin(p.t.t)<toMin(o.t.e)).map(o=>o.t.id.slice(-3));
+  return '<p class="mine-note">Saved in this browser on this device only.</p>'+DAYS.map(d=>{const ps=picks.filter(p=>p.d===d);if(!ps.length)return '';
+    return `<div class="mine-day"><div class="dayhead"><h2>${d.label}, ${d.date}</h2><span>${ps.length} selected</span></div>`+ps.map(p=>{const c=clash(p);return `<div class="mine-row"><div><div class="time">${p.t.t}–${p.t.e} ${LB(d.key,p.t.t,p.t.e)}</div><div class="where">${p.s.room}</div></div><div><button class="gotobtn" type="button" data-goto="${p.t.id}"><div class="talk-meta"><span>${p.t.id}</span><span class="pill">${esc(p.t.fmt)}</span>${p.t.online?'<span class="pill online">Online</span>':''}</div><div class="talk-title">${esc(p.t.ti)}</div><div class="talk-by">${esc(p.t.by)}</div></button><div class="gby">${esc(p.s.ws?'Workshop':p.s.code+' · '+p.s.theme)}</div>${c.length?`<span class="clash">Overlaps with ${c.join(', ')}</span>`:''}</div><button class="star" type="button" data-star="${p.t.id}" aria-pressed="true">Remove</button></div>`}).join('')+'</div>';}).join('');
+}
 function render(){
   const term=fold(q.value.trim());
-  tabs.innerHTML=`<button class="tab" role="tab" type="button" data-k="glance" aria-selected="${!term&&day==='glance'}">At a glance</button>`+DAYS.map(d=>`<button class="tab" role="tab" type="button" data-k="${d.key}" aria-selected="${!term&&d.key===day}">${d.label}<small>${d.date.split(' ').slice(0,2).join(' ')}</small></button>`).join('');
-  const html=term?DAYS.map(d=>dayHTML(d,term)).join(''):day==='glance'?glanceHTML():dayHTML(DAYS.find(d=>d.key===day),'');
-  exp.hidden=!term&&day==='glance';
+  tabs.innerHTML=`<button class="tab" role="tab" type="button" data-k="glance" aria-selected="${!term&&day==='glance'}">At a glance</button>`+DAYS.map(d=>`<button class="tab" role="tab" type="button" data-k="${d.key}" aria-selected="${!term&&d.key===day}">${d.label}<small>${d.date.split(' ').slice(0,2).join(' ')}</small></button>`).join('')+`<button class="tab" role="tab" type="button" data-k="mine" aria-selected="${!term&&day==='mine'}">My schedule<small id="minecount">${MINE.size||''}</small></button>`;
+  const html=term?DAYS.map(d=>dayHTML(d,term)).join(''):day==='glance'?glanceHTML():day==='mine'?mineHTML():dayHTML(DAYS.find(d=>d.key===day),'');
+  exp.hidden=!term&&(day==='glance'||day==='mine');
   out.innerHTML=html||`<p class="empty">No presentations match “${esc(q.value)}”. Try a surname, an ID such as 047, or a keyword.</p>`;
   exp.textContent=open?'Close all abstracts':'Open all abstracts';
   tick();
 }
 tabs.addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;day=b.dataset.k;q.value='';try{history.replaceState(null,'','#'+day)}catch(_){};render();window.scrollTo({top:0});});
 q.addEventListener('input',render);
-out.addEventListener('click',e=>{const b=e.target.closest('[data-goto]');if(!b)return;const id=b.dataset.goto;
+out.addEventListener('click',e=>{const st=e.target.closest('[data-star]');if(!st)return;e.stopPropagation();const id=st.dataset.star;
+  if(MINE.has(id))MINE.delete(id);else MINE.add(id);saveMine();
+  if(day==='mine'&&!q.value.trim()){render();return;}
+  const on=MINE.has(id);document.querySelectorAll(`[data-star="${id}"]`).forEach(b=>{b.setAttribute('aria-pressed',on);b.textContent=b.classList.contains('gstar')?(on?'★':'☆'):(on?'★ In my schedule':'☆ Add to my schedule');if(b.classList.contains('gstar'))b.setAttribute('aria-label',(on?'Remove from':'Add to')+' my schedule');});
+  document.querySelectorAll(`[data-cell="${id}"]`).forEach(c=>c.classList.toggle('picked',on));
+  const mc=document.getElementById('minecount');if(mc)mc.textContent=MINE.size||'';});
+out.addEventListener('click',e=>{if(e.target.closest('[data-star]'))return;const b=e.target.closest('[data-goto]');if(!b)return;const id=b.dataset.goto;
   const d=DAYS.find(d=>d.items.some(i=>i.kind==='block'&&i.sessions.some(s=>s.talks.some(t=>t.id===id))));
   day=d.key;q.value='';try{history.replaceState(null,'','#'+day)}catch(_){};render();
   const el=document.getElementById('t-'+id);if(el){const det=el.querySelector('details');if(det)det.open=true;el.scrollIntoView({block:'center'});el.classList.add('flash');}});
