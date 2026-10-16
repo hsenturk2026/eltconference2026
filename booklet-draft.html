@@ -99,6 +99,33 @@ details[open] summary::before{content:"– "}
 .note{color:var(--muted);font-size:13px;margin-top:6px}
 .empty{color:var(--muted);padding:24px 0}
 mark{background:var(--draft-soft);color:inherit;padding:0 1px}
+.glance-day{margin-bottom:36px}
+.glance-fixed{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13.5px;color:var(--muted);margin:0 0 14px}
+.glance-fixed b{color:var(--ink);font-weight:500;font-family:var(--f-mono);font-size:12.5px;margin-right:4px}
+.gblock{margin:0 0 22px}
+.gblock h3{font-family:var(--f-display);font-weight:500;font-size:19px;margin:0 0 8px}
+.gblock h3 span{font-family:var(--f-ui);font-size:13px;color:var(--muted);margin-left:8px}
+.gscroll{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table.g{border-collapse:collapse;width:100%;min-width:760px;table-layout:fixed}
+table.g th,table.g td{border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+table.g tr>*:last-child{border-right:none}
+table.g tbody tr:last-child>*{border-bottom:none}
+table.g thead th{font-weight:400;background:var(--paper)}
+table.g th.slot{width:62px;font-family:var(--f-mono);font-size:12px;color:var(--muted);font-weight:400;background:var(--paper)}
+.gh-room{font-family:var(--f-mono);font-size:12px;color:var(--accent);font-weight:500}
+.gh-ws .gh-room{color:var(--ws)}
+.gh-theme{font-size:12.5px;font-weight:600;line-height:1.3;margin-top:2px}
+.gh-code{font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+.gcell{display:block;width:100%;text-align:left;font:inherit;background:none;border:none;padding:0;color:inherit;cursor:pointer}
+.gcell:hover .gt{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+.gid{font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+.gt{font-family:var(--f-display);font-size:14px;line-height:1.28;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.gby{font-size:12px;color:var(--muted);margin-top:2px}
+td.ws{background:var(--ws-soft)}
+td.free{color:var(--muted);font-size:12px;font-style:italic}
+.flash{animation:flash 1.6s ease-out}
+@keyframes flash{0%{box-shadow:0 0 0 3px var(--accent)}100%{box-shadow:0 0 0 0 transparent}}
+@media (prefers-reduced-motion:reduce){.flash{animation:none}}
 footer{border-top:1px solid var(--line);color:var(--muted);font-size:13px}
 footer .wrap{padding-block:20px;display:flex;flex-wrap:wrap;gap:6px 24px}
 @media (max-width:640px){.row{grid-template-columns:1fr;gap:6px}.time{padding-top:0}}
@@ -134,7 +161,7 @@ footer .wrap{padding-block:20px;display:flex;flex-wrap:wrap;gap:6px 24px}
 (function(){
 const DAYS=JSON.parse(document.getElementById('data').textContent);
 const out=document.getElementById('out'), tabs=document.getElementById('tabs'), q=document.getElementById('q'), exp=document.getElementById('expand');
-let day=(location.hash||'').replace('#','')==='sun'?'sun':'sat', open=false;
+const h0=(location.hash||'').replace('#','');let day=['sat','sun','glance'].includes(h0)?h0:'glance', open=false;
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fold=s=>s.toLocaleLowerCase('tr').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/ı/g,'i');
 function hl(text,term){const e=esc(text);if(!term)return e;const f=fold(text);let i=f.indexOf(term);if(i<0)return e;
@@ -144,7 +171,7 @@ function talkHTML(t,term,poster){
   const paras=t.abs.split(/\n\s*\n/).map(p=>'<p>'+esc(p).replace(/\n/g,' ')+'</p>').join('');
   const time=poster?'':`<span class="t">${t.t}–${t.e}</span>`;
   const absOpen=open||(term&&fold(t.abs+' '+t.kw).includes(term)&&!fold(t.ti+t.by+t.id+t.aff).includes(term));
-  return `<div class="talk">
+  return `<div class="talk" id="t-${t.id}">
     <div class="talk-meta">${time}<span>${t.id}</span><span class="pill">${esc(t.fmt)}</span>${t.online?'<span class="pill online">Online</span>':''}</div>
     <div class="talk-title">${hl(t.ti,term)}</div>
     <div class="talk-by">${hl(t.by,term)}</div>
@@ -173,15 +200,42 @@ function dayHTML(d,term){
   }
   return n?`<div class="dayhead"><h2>${d.label}, ${d.date}</h2><span>${d.theme}</span></div>${h}`:'';
 }
+function surnames(by){return by.split(/,\s*/).map(n=>{const p=n.trim().split(/\s+/);return p[p.length-1]}).join(', ')}
+function glanceHTML(){
+  return DAYS.map(d=>{
+    const fixed=d.items.filter(i=>i.kind==='plenary'||i.kind==='posters').map(i=>`<span><b>${i.t.split('–')[0]}</b>${esc(i.kind==='posters'?'Poster session':i.title)}</span>`).join('');
+    const blocks=d.items.filter(i=>i.kind==='block').map(b=>{
+      const st=b.t.split('–')[0], slots=[st,add(st,30),add(st,60)];
+      const ss=b.sessions.slice().sort((x,y)=>(x.ws?1:0)-(y.ws?1:0)||x.room.localeCompare(y.room));
+      const head=ss.map(s=>`<th class="${s.ws?'gh-ws':''}" scope="col"><div class="gh-room">${s.room}</div><div class="gh-code">${s.code}</div><div class="gh-theme">${esc(s.ws?'Workshop':s.theme)}</div></th>`).join('');
+      const skip={};
+      const rows=slots.map((sl,ri)=>'<tr><th class="slot" scope="row">'+sl+'</th>'+ss.map((s,ci)=>{
+        if(skip[ci+'_'+ri])return '';
+        const tk=s.talks.find(x=>x.t===sl);
+        if(s.ws){ if(ri===0){skip[ci+'_1']=1;return `<td class="ws" rowspan="2">${cell(tk,true)}</td>`} return '<td class="free">–</td>'; }
+        return tk?`<td>${cell(tk)}</td>`:'<td class="free">Free slot</td>';
+      }).join('')+'</tr>').join('');
+      return `<div class="gblock"><h3>Concurrent Sessions ${b.name}<span>${b.t}</span></h3><div class="gscroll"><table class="g"><thead><tr><th class="slot"></th>${head}</tr></thead><tbody>${rows}</tbody></table></div></div>`;
+    }).join('');
+    return `<div class="glance-day"><div class="dayhead"><h2>${d.label}, ${d.date}</h2><span>${d.theme}</span></div><div class="glance-fixed">${fixed}</div>${blocks}</div>`;
+  }).join('')+'<p class="note">Select a presentation to read its abstract.</p>';
+  function cell(t,ws){return `<button class="gcell" type="button" data-goto="${t.id}"><div class="gid">${t.id.slice(-3)}${ws?' · '+t.t+'–'+t.e:''}</div><div class="gt">${esc(t.ti)}</div><div class="gby">${esc(surnames(t.by))}</div></button>`}
+}
+function add(t,m){let [h,mi]=t.split(':').map(Number);mi+=m;h+=Math.floor(mi/60);return String(h).padStart(2,'0')+':'+String(mi%60).padStart(2,'0')}
 function render(){
   const term=fold(q.value.trim());
-  tabs.innerHTML=DAYS.map(d=>`<button class="tab" role="tab" type="button" data-k="${d.key}" aria-selected="${!term&&d.key===day}">${d.label}<small>${d.date.split(' ').slice(0,2).join(' ')}</small></button>`).join('');
-  const html=term?DAYS.map(d=>dayHTML(d,term)).join(''):dayHTML(DAYS.find(d=>d.key===day),'');
+  tabs.innerHTML=`<button class="tab" role="tab" type="button" data-k="glance" aria-selected="${!term&&day==='glance'}">At a glance</button>`+DAYS.map(d=>`<button class="tab" role="tab" type="button" data-k="${d.key}" aria-selected="${!term&&d.key===day}">${d.label}<small>${d.date.split(' ').slice(0,2).join(' ')}</small></button>`).join('');
+  const html=term?DAYS.map(d=>dayHTML(d,term)).join(''):day==='glance'?glanceHTML():dayHTML(DAYS.find(d=>d.key===day),'');
+  exp.hidden=!term&&day==='glance';
   out.innerHTML=html||`<p class="empty">No presentations match “${esc(q.value)}”. Try a surname, an ID such as 047, or a keyword.</p>`;
   exp.textContent=open?'Close all abstracts':'Open all abstracts';
 }
 tabs.addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;day=b.dataset.k;q.value='';try{history.replaceState(null,'','#'+day)}catch(_){};render();window.scrollTo({top:0});});
 q.addEventListener('input',render);
+out.addEventListener('click',e=>{const b=e.target.closest('[data-goto]');if(!b)return;const id=b.dataset.goto;
+  const d=DAYS.find(d=>d.items.some(i=>i.kind==='block'&&i.sessions.some(s=>s.talks.some(t=>t.id===id))));
+  day=d.key;q.value='';try{history.replaceState(null,'','#'+day)}catch(_){};render();
+  const el=document.getElementById('t-'+id);if(el){const det=el.querySelector('details');if(det)det.open=true;el.scrollIntoView({block:'center'});el.classList.add('flash');}});
 exp.addEventListener('click',()=>{open=!open;render();});
 render();
 var m=["yuelt.conference","gmail.com"].join("@");document.getElementById("mail").textContent=m;
