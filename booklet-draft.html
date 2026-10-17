@@ -236,7 +236,8 @@ function dayHTML(d,term){
   }
   return n?`<div class="dayhead"><h2>${d.label}, ${d.date}</h2><span>${d.theme}</span></div>${h}`:'';
 }
-function surnames(by){return by.split(/,\s*/).map(n=>{const p=n.trim().split(/\s+/);return p[p.length-1]}).join(', ')}
+const MULTI=['Erten İncücük','Günçavdı Alabay','Kesik Ülker','Eser Ülker','Pervan van Dam','Ben Zeyed Özgen','Samandari Giglou','Eveyik Aydın','Genç Yöntem','Ghahremanlouy Olya','Vahid Yeganeh'];
+function surnames(by){return by.split(/,\s*/).map(n=>{n=n.trim();const m=MULTI.find(s=>n.endsWith(' '+s));if(m)return m;const p=n.split(/\s+/);return p[p.length-1]}).join(', ')}
 function glanceHTML(){
   return DAYS.map(d=>{
     const fixed=d.items.filter(i=>i.kind==='plenary'||i.kind==='posters').map(i=>`<span><b>${i.t.split('–')[0]}</b>${esc(i.kind==='posters'?'Poster session':i.title)}</span>`).join('');
