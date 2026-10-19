@@ -100,6 +100,16 @@
     .venue-key .tr { font-size: 0.8rem; color: var(--muted); font-style: italic; margin-bottom: 0.4rem; }
     .venue-key p { font-size: 0.88rem; color: var(--ink-light); line-height: 1.65; }
 
+    /* Booklet call-out */
+    .booklet-cta { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap;
+      background: var(--forest-dark); color: #fff; border-radius: 10px; padding: 1.75rem 2rem; margin-bottom: 2.5rem; }
+    .booklet-cta .k { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--terracotta-light); font-weight: 500; }
+    .booklet-cta h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; line-height: 1.2; color: #fff; margin: 0.25rem 0 0.4rem; }
+    .booklet-cta p { font-size: 0.92rem; color: rgba(255,255,255,0.75); line-height: 1.6; max-width: 34rem; }
+    .booklet-cta .btn { white-space: nowrap; }
+    .conc-link { display: inline-block; margin-top: 0.6rem; font-size: 0.85rem; color: var(--terracotta-dark); border-bottom: 1px solid rgba(196,113,74,0.35); }
+    .conc-link:hover { color: var(--terracotta); border-bottom-color: var(--terracotta); }
+
     .prog-actions { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
     .prog-actions p { font-size: 0.85rem; color: var(--muted); }
 
@@ -110,11 +120,13 @@
       .slot.plen, .slot.conc, .slot.panel, .slot.poster { padding: 1.25rem; }
       .talk-title { font-size: 1.35rem; }
       .day-tab { padding: 0.85rem 1rem; }
+      .booklet-cta { padding: 1.5rem; }
+      .booklet-cta .btn { width: 100%; text-align: center; }
       .day-tab .n { font-size: 1.7rem; }
     }
 
     @media print {
-      nav, footer, .page-hero, .day-tabs, .prog-actions, details.abstract summary { display: none !important; }
+      nav, footer, .page-hero, .day-tabs, .prog-actions, .booklet-cta, .conc-link, details.abstract summary { display: none !important; }
       .day-panel[hidden] { display: block !important; }
       .day-heading { display: block; color: var(--forest-dark); margin: 1.5rem 0 0.5rem; }
       .section { padding: 1rem 0; }
@@ -162,6 +174,15 @@
       <div class="prog-fact"><div class="k">Main venue</div><div class="v">Arts and Design Faculty Building<br><span style="font-size:0.95rem;color:var(--muted);font-style:italic;">STF · Yeditepe University campus</span></div></div>
       <div class="prog-fact"><div class="k">Concurrent presentations</div><div class="v">25 min talk + 5 min Q&amp;A<br><span style="font-size:0.95rem;color:var(--muted);font-style:italic;">three 30-minute slots per block</span></div></div>
       <div class="prog-fact"><div class="k">Plenaries &amp; panel</div><div class="v">Arts and Design Faculty<br><span style="font-size:0.95rem;color:var(--muted);font-style:italic;">STF 8th Floor</span></div></div>
+    </div>
+
+    <div class="booklet-cta">
+      <div>
+        <div class="k">Now available</div>
+        <h2>Programme and Book of Abstracts</h2>
+        <p>Every concurrent session with rooms and times, all abstracts, a searchable list of presenters, and a personal schedule you can build on your phone.</p>
+      </div>
+      <a href="booklet.html" class="btn btn-primary">Open the booklet</a>
     </div>
 
     <div class="day-tabs" role="tablist" aria-label="Conference days">
@@ -226,6 +247,7 @@
             <div class="slot-title">Concurrent Sessions</div>
             <div class="mini-slots"><span>11:30 – 12:00</span><span>12:00 – 12:30</span><span>12:30 – 13:00</span></div>
             <div class="slot-venue">STF Building · 2nd, 3rd and 4th Floors</div>
+            <a class="conc-link" href="booklet.html">See sessions, rooms and presenters →</a>
           </div>
         </li>
 
@@ -269,6 +291,7 @@
             <div class="slot-title">Concurrent Sessions</div>
             <div class="mini-slots"><span>15:45 – 16:15</span><span>16:15 – 16:45</span><span>16:45 – 17:15</span></div>
             <div class="slot-venue">STF Building · 2nd, 3rd and 4th Floors</div>
+            <a class="conc-link" href="booklet.html">See sessions, rooms and presenters →</a>
           </div>
         </li>
 
@@ -295,7 +318,7 @@
           <div>
             <div class="slot-type">Poster Session</div>
             <div class="slot-title">Poster Presentations</div>
-            <div class="slot-venue">Arts and Design Faculty Entrance Hall</div>
+            <div class="slot-venue">Arts and Design Faculty Foyer · STF 8th Floor</div>
           </div>
         </li>
 
@@ -330,6 +353,7 @@
             <div class="slot-title">Concurrent Sessions</div>
             <div class="mini-slots"><span>11:30 – 12:00</span><span>12:00 – 12:30</span><span>12:30 – 13:00</span></div>
             <div class="slot-venue">STF Building · 2nd, 3rd and 4th Floors</div>
+            <a class="conc-link" href="booklet.html">See sessions, rooms and presenters →</a>
           </div>
         </li>
 
@@ -366,7 +390,7 @@
     </div>
 
     <div class="prog-actions">
-      <p>The room-by-room schedule of concurrent presentations will be published shortly. The programme may be subject to minor changes.</p>
+      <p>The room-by-room schedule of concurrent presentations and all abstracts are in the <a href="booklet.html">Programme and Book of Abstracts</a>. The programme may be subject to minor changes.</p>
       <button class="btn btn-outline" id="print-btn" type="button">Print full programme</button>
     </div>
 
