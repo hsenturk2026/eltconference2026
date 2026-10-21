@@ -107,6 +107,10 @@
     .booklet-cta h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; line-height: 1.2; color: #fff; margin: 0.25rem 0 0.4rem; }
     .booklet-cta p { font-size: 0.92rem; color: rgba(255,255,255,0.75); line-height: 1.6; max-width: 34rem; }
     .booklet-cta .btn { white-space: nowrap; }
+    .booklet-cta .cta-btns { display: flex; flex-direction: column; gap: 0.6rem; }
+    .booklet-cta .cta-btns .btn { text-align: center; }
+    .booklet-cta .btn-ghost { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.45); text-align: center; }
+    .booklet-cta .btn-ghost:hover { background: rgba(255,255,255,0.1); color: #fff; }
     .conc-link { display: inline-block; margin-top: 0.6rem; font-size: 0.85rem; color: var(--terracotta-dark); border-bottom: 1px solid rgba(196,113,74,0.35); }
     .conc-link:hover { color: var(--terracotta); border-bottom-color: var(--terracotta); }
 
@@ -122,6 +126,7 @@
       .day-tab { padding: 0.85rem 1rem; }
       .booklet-cta { padding: 1.5rem; }
       .booklet-cta .btn { width: 100%; text-align: center; }
+      .booklet-cta .cta-btns { width: 100%; }
       .day-tab .n { font-size: 1.7rem; }
     }
 
@@ -182,7 +187,10 @@
         <h2>Programme and Book of Abstracts</h2>
         <p>Every concurrent session with rooms and times, all abstracts, a searchable list of presenters, and a personal schedule you can build on your phone.</p>
       </div>
-      <a href="booklet.html" target="_blank" rel="noopener" class="btn btn-primary">Open the booklet</a>
+      <div class="cta-btns">
+        <a href="booklet.html" target="_blank" rel="noopener" class="btn btn-primary">Open the booklet</a>
+        <a href="ELT_Conference_2026_Programme.pdf" download class="btn btn-ghost">Download programme (PDF)</a>
+      </div>
     </div>
 
     <div class="day-tabs" role="tablist" aria-label="Conference days">
@@ -391,7 +399,7 @@
 
     <div class="prog-actions">
       <p>The room-by-room schedule of concurrent presentations and all abstracts are in the <a href="booklet.html" target="_blank" rel="noopener">Programme and Book of Abstracts</a>. The programme may be subject to minor changes.</p>
-      <button class="btn btn-outline" id="print-btn" type="button">Print full programme</button>
+      <a href="ELT_Conference_2026_Programme.pdf" download class="btn btn-outline">Download programme (PDF)</a>
     </div>
 
   </div>
@@ -488,7 +496,7 @@
     printOpened.forEach(d => d.open = true);
   });
   window.addEventListener('afterprint', () => { printOpened.forEach(d => d.open = false); });
-  document.getElementById('print-btn').addEventListener('click', () => window.print());
+  document.getElementById('print-btn')?.addEventListener('click', () => window.print());
 </script>
 </body>
 </html>
